@@ -1,31 +1,40 @@
-﻿@{
-    ViewBag.Title = "Home Page";
-}
+﻿@model  Borderlands2GoldendKeys.Models.HomeViewModel
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-large">Learn more &raquo;</a></p>
-</div>
+    <div class="jumbotron">
+        <h1>Borderlands 2 Golden Keys <small>unofficial</small></h1>
+        <p class="lead">This site has one and only pupose: list <a href="http://gearboxsoftware.com/" title="Official Gearbox site">gearbox</a>'s <a href="http://www.borderlands2.com" title="Official Borderlands 2 site">borderlands 2</a>'s golden keys.</p>
+    </div>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <blockquote>
+                @Model.ClapTrapQuote.Quote
+                <footer>
+                    ClapTrap
+                </footer>
+            </blockquote>
+        </div>
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+    <div class="row">
+        <div class="col-md-2">
+            <h2>Platform</h2>
+            <p>PC / MAC</p>
+        </div>
+        <div class="col-md-4">
+            <h2>Golden Key</h2>
+            <p>C3KJ3-WCZW3-H5TFK-BTB3T-9RKTZ</p>
+        </div>
+        <div class="col-md-4">
+            <h2>Valid until</h2>
+            <p>No date available.</p>
+        </div>
+        <div class="col-md-2">
+            <h2>Source</h2>
+            <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+        </div>
     </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
-</div>
+
+<hr />
+<footer>
+    Borderlands 2 is property of <a href="http://gearboxsoftware.com/" title="Official Gearbox site">Gearbox Software</a>.
+</footer>

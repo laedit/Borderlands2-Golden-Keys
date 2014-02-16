@@ -1,30 +1,41 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using Borderlands2GoldendKeys.Models;
+using Raven.Client;
+using System.Threading.Tasks;
 using System.Web.Mvc;
+using System.Linq;
 
 namespace Borderlands2GoldendKeys.Controllers
 {
     public class HomeController : Controller
     {
+        /// <summary>
+        /// RavenDB document session
+        /// </summary>
+        private IDocumentSession _documentSession;
+
+        public HomeController(IDocumentSession documentSession)
+        {
+            _documentSession = documentSession;
+        }
+
         public ActionResult Index()
         {
-            return View();
-        }
+            // if eTag cache neede
+            // http://stackoverflow.com/questions/937668/how-do-i-support-etags-in-asp-net-mvc
 
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
+            // Store some ClapTrap's quotes if necessary
+            if (!_documentSession.Query<ClapTrapQuote>().Any())
+            {
+                ClapTrapQuote.GetBaseQuotes().ForEach(q => _documentSession.Store(q));
+                _documentSession.SaveChanges();
+            }
 
-            return View();
-        }
+            // Get datas
+            var homeViewModel = new HomeViewModel();
 
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
+            homeViewModel.ClapTrapQuote = _documentSession.Query<ClapTrapQuote>().Customize(q => q.RandomOrdering()).First();
 
-            return View();
+            return View(homeViewModel);
         }
     }
 }

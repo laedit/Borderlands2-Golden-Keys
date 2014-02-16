@@ -89,6 +89,7 @@ namespace Borderlands2GoldendKeys.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    _documentSession.SaveChanges();
                     await SignInAsync(user, isPersistent: false);
                     return RedirectToAction("Index", "Home");
                 }

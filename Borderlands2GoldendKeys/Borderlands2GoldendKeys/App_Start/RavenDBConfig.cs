@@ -1,10 +1,5 @@
 ﻿using Raven.Client;
 using Raven.Client.Embedded;
-using Raven.Database.Server;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace Borderlands2GoldendKeys
 {
@@ -20,7 +15,8 @@ namespace Borderlands2GoldendKeys
             {
                 DataDirectory = @"~\App_Data\Database",
 #if DEBUG
-                //UseEmbeddedHttpServer = true
+                //UseEmbeddedHttpServer = true,
+                RunInMemory = true,
 #endif
             };
             documentStore.Conventions.IdentityPartsSeparator = "-";
