@@ -8,36 +8,36 @@
         {
             <text>@ViewBag.Title - </text>
         }
-        Borderlands 2 Golden Keys
+        Borderlands 2: Golden Keys
     </title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
 </head>
 <body>
-    @*<div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", null, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                </ul>
-                @Html.Partial("_LoginPartial")
-            </div>
-        </div>
-    </div>*@
     <div class="container body-content">
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - Borderlands 2 Golden Keys - <a href="http://laedit.net">Laedit</a></p>
+            <p>// &nbsp; Made with &nbsp; 
+                <a href="http://asp.net/mvc"><img src="~/Content/logos/aspnet.png" title="ASP.NET MVC 5" alt="ASP.NET MVC 5" width="32" /></a> 
+                 &nbsp;-&nbsp;  
+                <a href="http://ravendb.net"><img src="~/Content/logos/ravendb.png" title="RavenDB" alt="RavenDB" width="32" /></a>  
+                &nbsp;-&nbsp;  
+                <a href="https://linqtotwitter.codeplex.com/"><img src="~/Content/logos/linq2twitter.png" title="Linq2Twitter" alt="Linq2Twitter" height="16" /></a>  
+              &nbsp;//&nbsp;  Hosted on &nbsp;
+                <a href="http://www.ikoula.com/"><img src="~/Content/logos/ikoula.png" title="Ikoula" alt="Ikoula" /></a> 
+              &nbsp; //&nbsp;  Source code on &nbsp;
+                <a href="https://github.com/laedit/Borderlands2-Golden-Keys"><img src="~/Content/logos/github.png" title="GitHub" alt="GitHub" width="16" /></a>  
+              &nbsp;//&nbsp;  Styled with &nbsp;
+                <a href="http://getbootstrap.com/"><img src="~/Content/logos/bootstrap.png" title="Twitter Bootstrap" alt="Twitter Bootstrap" /></a>  
+                &nbsp;-&nbsp;  <a href="http://bootswatch.com/"><img src="~/Content/logos/bootswatch.png" title="Bootswatch" alt="Bootswatch" /></a>
+                &nbsp;-&nbsp;  <a href="http://dafont.com/"><img src="~/Content/logos/dafont.png" title="DaFont" alt="DaFont" /></a>
+            </p>
+        </footer>
+        <hr />
+        <footer>
+            <p>Borderlands 2: Golden Keys v1.0 by <a href="http://laedit.net">Laedit</a> - &copy; @DateTime.Now.Year</p>
         </footer>
     </div>
 

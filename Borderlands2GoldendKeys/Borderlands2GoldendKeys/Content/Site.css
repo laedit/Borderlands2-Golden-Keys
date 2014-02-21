@@ -1,5 +1,16 @@
-﻿body {
-    padding-top: 50px;
+﻿
+@font-face {
+    font-family: Top Secret;
+    src: url(/fonts/_TOP_SECRET_.otf) format('opentype');
+}
+
+@font-face {
+    font-family: Defused;
+    src: url(/fonts/defused.ttf) format('truetype');
+}
+
+body {
+    /*padding-top: 50px;*/
     padding-bottom: 20px;
 }
 
@@ -39,4 +50,14 @@ input[type="checkbox"].input-validation-error {
 
 .validation-summary-valid {
     display: none;
+}
+
+.secret {
+    color: darkred;
+    font-family: Top Secret;
+}
+
+.defused {
+    color: darkgoldenrod;
+    font-family: Defused;
 }

@@ -20,15 +20,8 @@ namespace Borderlands2GoldendKeys.Controllers
 
         public ActionResult Index()
         {
-            // if eTag cache neede
+            // if eTag cache needed
             // http://stackoverflow.com/questions/937668/how-do-i-support-etags-in-asp-net-mvc
-
-            // Store some ClapTrap's quotes if necessary
-            if (!_documentSession.Query<ClapTrapQuote>().Any())
-            {
-                ClapTrapQuote.GetBaseQuotes().ForEach(q => _documentSession.Store(q));
-                _documentSession.SaveChanges();
-            }
 
             // Get datas
             var homeViewModel = new HomeViewModel();

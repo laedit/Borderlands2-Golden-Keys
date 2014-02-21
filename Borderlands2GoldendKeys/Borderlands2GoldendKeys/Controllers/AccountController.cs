@@ -39,6 +39,7 @@ namespace Borderlands2GoldendKeys.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+            // TODO test if already admin => if not show register
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
@@ -73,6 +74,7 @@ namespace Borderlands2GoldendKeys.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            // TODO if already an admin => throw error
             return View();
         }
 
@@ -83,6 +85,7 @@ namespace Borderlands2GoldendKeys.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
+            // TODO if already an admin => throw error
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser() { UserName = model.UserName };

@@ -1,40 +1,69 @@
 ﻿@model  Borderlands2GoldendKeys.Models.HomeViewModel
 
-    <div class="jumbotron">
-        <h1>Borderlands 2 Golden Keys <small>unofficial</small></h1>
-        <p class="lead">This site has one and only pupose: list <a href="http://gearboxsoftware.com/" title="Official Gearbox site">gearbox</a>'s <a href="http://www.borderlands2.com" title="Official Borderlands 2 site">borderlands 2</a>'s golden keys.</p>
+<div class="well">
+    <h1 class="defused">Borderlands 2: Golden Keys <small class="secret red">[unofficial]</small></h1>
+    <div>
+        This site has one and only purpose: list <a href="http://gearboxsoftware.com/" title="Official Gearbox site">gearbox</a>'s <a href="http://www.borderlands2.com" title="Official Borderlands 2 site">borderlands 2</a>'s golden keys.
     </div>
+</div>
 
-    <div class="row">
-        <div class="col-md-12 text-center">
-            <blockquote>
-                @Model.ClapTrapQuote.Quote
-                <footer>
-                    ClapTrap
-                </footer>
-            </blockquote>
-        </div>
+<div class="row">
+    <div class="col-md-12 text-center">
+        <blockquote>
+            @Model.ClapTrapQuote.Quote
+            <footer>
+                ClapTrap
+            </footer>
+        </blockquote>
     </div>
-    <div class="row">
-        <div class="col-md-2">
-            <h2>Platform</h2>
-            <p>PC / MAC</p>
-        </div>
-        <div class="col-md-4">
-            <h2>Golden Key</h2>
-            <p>C3KJ3-WCZW3-H5TFK-BTB3T-9RKTZ</p>
-        </div>
-        <div class="col-md-4">
-            <h2>Valid until</h2>
-            <p>No date available.</p>
-        </div>
-        <div class="col-md-2">
-            <h2>Source</h2>
-            <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-        </div>
-    </div>
+</div>
+@*<div class="row">
+    <div class=".col-md-6 .col-md-offset-3">*@
+<table class="table table-striped text-center">
+    <thead>
+        <tr>
+            <th class="text-center"><h4>Platform</h4></th>
+            <th class="text-center"><h4>Golden Key</h4></th>
+            <th class="text-center"><h4>Valid until</h4></th>
+            <th class="text-center"><h4>Source</h4></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>PC / MAC</td>
+            <td>C3KJ3-WCZW3-H5TFK-BTB3T-9RKTZ</td>
+            <td>No date available</td>
+            <td><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></td>
+        </tr>
+        <tr>
+            <td>PC / MAC</td>
+            <td>C3KJ3-WCZW3-H5TFK-BTB3T-9RKTZ</td>
+            <td>No date available</td>
+            <td><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></td>
+        </tr>
+    </tbody>
+</table>
+@*</div>
+    </div>*@
+
 
 <hr />
-<footer>
-    Borderlands 2 is property of <a href="http://gearboxsoftware.com/" title="Official Gearbox site">Gearbox Software</a>.
-</footer>
+<div class="well">
+    <div class="row text-center">
+        <div class="col-md-4">
+            This site is not affiliated to <a href="http://gearboxsoftware.com/" title="Official Gearbox site">Gearbox Software</a>
+        </div>
+        <div class="col-md-4">
+            Borderlands 2 is property of <a href="http://gearboxsoftware.com/" title="Official Gearbox site">Gearbox Software</a>
+        </div>
+        <div class="col-md-4">
+            <a href="https://twitter.com/GearboxSoftware" class="twitter-follow-button" data-show-count="false" data-dnt="true">Follow @@GearboxSoftware</a>
+        </div>
+    </div>
+</div>
+
+
+@section scripts
+{
+    <script>!function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https'; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = p + '://platform.twitter.com/widgets.js'; fjs.parentNode.insertBefore(js, fjs); } }(document, 'script', 'twitter-wjs');</script>
+}

@@ -1,5 +1,7 @@
-﻿using Raven.Client;
+﻿using Borderlands2GoldendKeys.Models;
+using Raven.Client;
 using Raven.Client.Embedded;
+using System.Linq;
 
 namespace Borderlands2GoldendKeys
 {
@@ -25,6 +27,19 @@ namespace Borderlands2GoldendKeys
 
             // if necessary
             //IndexCreation.CreateIndexes(Assembly.GetCallingAssembly(), documentStore);
+
+            // TODO initialize here ?
+
+            using (IDocumentSession documentSession = documentStore.OpenSession())
+            {
+                // Store some ClapTrap's quotes if needed
+                if (!documentSession.Query<ClapTrapQuote>().Any())
+                {
+                    ClapTrapQuote.GetBaseQuotes().ForEach(q => documentSession.Store(q));
+                }
+
+                documentSession.SaveChanges();
+            }
 
             return documentStore;
         }
