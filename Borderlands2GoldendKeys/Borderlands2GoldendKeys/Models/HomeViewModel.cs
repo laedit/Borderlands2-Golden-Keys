@@ -7,5 +7,10 @@ namespace Borderlands2GoldendKeys.Models
         public ClapTrapQuote ClapTrapQuote { get; set; }
 
         public List<GoldenKey> GoldenKeys { get; set; }
+
+        public HomeViewModel()
+        {
+            GoldenKeys = new List<GoldenKey>();
+        }
     }
 }

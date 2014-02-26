@@ -1,0 +1,21 @@
+﻿@model DateTime?
+
+@{ 
+    string glyphicon = "glyphicon-minus";
+    string formatedDate = "No date available";
+    
+    if(Model.HasValue)
+    {
+        formatedDate = Model.Value.ToString("MM/dd/yyyy");
+        
+        if(Model.Value > DateTime.Today)
+        {
+            glyphicon = "glyphicon-ok";
+        }
+        else
+        {
+            glyphicon = "glyphicon-remove";
+        }
+    }
+}
+<span class="validKey glyphicon @glyphicon" data-toggle="tooltip" data-placement="right" title="@formatedDate"></span>

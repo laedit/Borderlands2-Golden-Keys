@@ -1,0 +1,12 @@
+﻿@model List<Borderlands2GoldendKeys.Models.GoldenKey>
+
+@foreach (var key in Model)
+{
+    <tr>
+        <td>@key.Platform.DisplayName()</td>
+        <td>@key.Key</td>
+        <td>@Html.DisplayFor(m => key.ExpirationDate)
+         @*<span class="validKey glyphicon glyphicon-ok" data-toggle="tooltip" data-placement="right" title="@(key.ExpirationDate.HasValue ? key.ExpirationDate.Value.ToString("MM/dd/yyyy") : "No date available")"></span>*@</td>
+        <td><a class="btn btn-sm" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></td>
+    </tr>
+}
