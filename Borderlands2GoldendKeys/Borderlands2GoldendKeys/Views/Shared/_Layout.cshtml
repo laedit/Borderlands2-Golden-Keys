@@ -19,31 +19,36 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>// &nbsp; Made with &nbsp; 
-                <a href="http://asp.net/mvc"><img src="~/Content/logos/aspnet.png" title="ASP.NET MVC 5" alt="ASP.NET MVC 5" width="32" /></a> 
-                 &nbsp;-&nbsp;  
-                <a href="http://ravendb.net"><img src="~/Content/logos/ravendb.png" title="RavenDB" alt="RavenDB" width="32" /></a>  
-                &nbsp;-&nbsp;  
-                <a href="https://linqtotwitter.codeplex.com/"><img src="~/Content/logos/linq2twitter.png" title="Linq2Twitter" alt="Linq2Twitter" height="16" /></a>  
-              &nbsp;//&nbsp;  Hosted on &nbsp;
-                <a href="http://www.ikoula.com/"><img src="~/Content/logos/ikoula.png" title="Ikoula" alt="Ikoula" /></a> 
-              &nbsp; //&nbsp;  Source code on &nbsp;
-                <a href="https://github.com/laedit/Borderlands2-Golden-Keys"><img src="~/Content/logos/github.png" title="GitHub" alt="GitHub" width="16" /></a>  
-              &nbsp;//&nbsp;  Styled with &nbsp;
-                <a href="http://getbootstrap.com/"><img src="~/Content/logos/bootstrap.png" title="Twitter Bootstrap" alt="Twitter Bootstrap" /></a>  
-                &nbsp;-&nbsp;  <a href="http://bootswatch.com/"><img src="~/Content/logos/bootswatch.png" title="Bootswatch" alt="Bootswatch" /></a>
-                &nbsp;-&nbsp;  <a href="http://dafont.com/"><img src="~/Content/logos/dafont.png" title="DaFont" alt="DaFont" /></a>
-                &nbsp;-&nbsp;  <a href="http://glyphicons.com/"><img src="~/Content/logos/glyphicons.png" title="Glyphicons" alt="Glyphicons" /></a>
+            <p>
+                // &nbsp; Made with &nbsp;
+                <a href="http://asp.net/mvc"><img src="~/Content/images/aspnet.png" title="ASP.NET MVC 5" alt="ASP.NET MVC 5" width="32" /></a>
+                &nbsp;-&nbsp;
+                <a href="http://ravendb.net"><img src="~/Content/images/ravendb.png" title="RavenDB" alt="RavenDB" width="32" /></a>
+                &nbsp;-&nbsp;
+                <a href="https://linqtotwitter.codeplex.com/"><img src="~/Content/images/linq2twitter.png" title="Linq2Twitter" alt="Linq2Twitter" height="16" /></a>
+                &nbsp;//&nbsp;  Hosted on &nbsp;
+                <a href="http://www.ikoula.com/"><img src="~/Content/images/ikoula.png" title="Ikoula" alt="Ikoula" /></a>
+                &nbsp; //&nbsp;  Source code on &nbsp;
+                <a href="https://github.com/laedit/Borderlands2-Golden-Keys"><img src="~/Content/images/github.png" title="GitHub" alt="GitHub" width="16" /></a>
+                &nbsp;//&nbsp;  Styled with &nbsp;
+                <a href="http://getbootstrap.com/"><img src="~/Content/images/bootstrap.png" title="Twitter Bootstrap" alt="Twitter Bootstrap" /></a>
+                &nbsp;-&nbsp;  <a href="http://bootswatch.com/"><img src="~/Content/images/bootswatch.png" title="Bootswatch" alt="Bootswatch" /></a>
+                &nbsp;-&nbsp;  <a href="http://dafont.com/"><img src="~/Content/images/dafont.png" title="DaFont" alt="DaFont" /></a>
+                &nbsp;-&nbsp;  <a href="http://glyphicons.com/"><img src="~/Content/images/glyphicons.png" title="Glyphicons" alt="Glyphicons" /></a>
             </p>
         </footer>
         <hr />
         <footer>
-            <p>Borderlands 2: Golden Keys v1.0 by <a href="http://laedit.net">Laedit</a> - &copy; @DateTime.Now.Year</p>
+            <p>Borderlands 2: Golden Keys v1.0 by <a href="http://laedit.net">Laedit</a> - &copy; @if (DateTime.Now.Year > 2014)
+            { <text>2014 - </text>@DateTime.Now.Year }
+            else
+            {@DateTime.Now.Year}</p>
         </footer>
     </div>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jqueryunobt")
     @RenderSection("scripts", required: false)
 </body>
 </html>

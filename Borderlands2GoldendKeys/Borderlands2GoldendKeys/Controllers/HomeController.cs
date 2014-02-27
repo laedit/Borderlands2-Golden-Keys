@@ -31,11 +31,14 @@ namespace Borderlands2GoldendKeys.Controllers
 
 
             // TODO get golden keys
-            homeViewModel.GoldenKeys.Add(new GoldenKey { Key = "C3KJ3-WCZW3-H5TFK-BTB3T-9RKTZ", ExpirationDate = DateTime.Now.AddDays(1), Platform = Platform.PC_MAC });
-            homeViewModel.GoldenKeys.Add(new GoldenKey { Key = "C3KJ3-WCZW3-H5TFK-BTB3T-9RKTZ", ExpirationDate = new DateTime(2014, 02, 24), Platform = Platform.XBOX });
-            homeViewModel.GoldenKeys.Add(new GoldenKey { Key = "C3KJ3-WCZW3-H5TFK-BTB3T-9RKTZ", ExpirationDate = null, Platform = Platform.PS3 });
-
+            homeViewModel.GoldenKeys = GoldenKey.GetDummyData().Take(5).ToList();
+            
             return View(homeViewModel);
+        }
+
+        public ActionResult GetRemainingGoldenKeys()
+        {
+            return PartialView("_GoldenKeyRowPartial", GoldenKey.GetDummyData().Skip(5).ToList());
         }
     }
 }
