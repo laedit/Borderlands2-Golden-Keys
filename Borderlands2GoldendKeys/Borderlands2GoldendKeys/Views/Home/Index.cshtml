@@ -18,21 +18,30 @@
     </div>
 </div>
 
-<div>
-    <table class="table table-striped table-hover text-center">
-        <thead>
-            <tr>
-                <th class="text-center"><h4>Platform</h4></th>
-                <th class="text-center"><h4>SHiFT Code</h4></th>
-                <th class="text-center"><h4>Valid</h4></th>
-                <th class="text-center"><h4>Source</h4></th>
-            </tr>
-        </thead>
-        <tbody id="goldenKeys">
-            @Html.Partial("_GoldenKeyRowPartial", Model.GoldenKeys)
-        </tbody>
-    </table>
-    <div class="row text-center" id="showAllBlock">
+<div class="row">
+    <div class="col-md-12 text-center">
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th class="text-center"><h4>Platform</h4></th>
+                    <th class="text-center"><h4>SHiFT Code</h4></th>
+                    <th class="text-center"><h4>Valid</h4></th>
+                    <th class="text-center"><h4>Source</h4></th>
+                </tr>
+            </thead>
+            <tbody id="goldenKeys">
+                @Html.Partial("_GoldenKeyRowPartial", Model.GoldenKeys)
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4 col-md-offset-4">
+        <div id="showAllError" class="displaynone alert alert-danger"><strong>AHHHHHHHHHHHHHHHHH! Dang.</strong> My bad.</div>
+    </div>
+</div>
+<div class="row text-center">
+    <div class="col-md-2 col-md-offset-5">
         @using (Ajax.BeginForm("GetRemainingGoldenKeys", new AjaxOptions
         {
             InsertionMode = InsertionMode.InsertAfter,
@@ -43,10 +52,15 @@
             OnSuccess = "ShowAllSuccess"
         }))
         {
-            <input type="submit" value="Show all" class="btn btn-default btn-sm" />
+            <input id="showAllButton" type="submit" value="Show all" class="btn btn-default btn-sm" />
         }
-        <img id="ajaxLoader" src="~/Content/images/ajax-loader.gif" class="hidden" />
-        <div id="showAllError" class="hidden">An error occured...</div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-2 col-md-offset-5">
+        <div id="ajaxLoader" class="displaynone progress progress-striped active">
+            <div class="progress-bar" style="width: 100%"></div>
+        </div>
     </div>
 </div>
 
@@ -68,26 +82,6 @@
 
 @section scripts
 {
-    <script type="text/javascript">
-        $(document).ready(function () {
-            InitializeTooltip();
-        });
-
-        function InitializeTooltip() {
-            $('.validKey').tooltip();
-        }
-        
-        function ShowAllSuccess() {
-            $('#showAllBlock').hide();
-            InitializeTooltip();
-        }
-        function ShowAllFailure() {
-            $('#showAllError').show();
-        }
-        function ShowAllBegin() {
-            $('#showAllError').hide();
-        }
-    </script>
-
-    <script type="text/javascript">!function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https'; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = p + '://platform.twitter.com/widgets.js'; fjs.parentNode.insertBefore(js, fjs); } }(document, 'script', 'twitter-wjs');</script>
+    @Scripts.Render("~/bundles/jqueryunobt")
+    @Scripts.Render("~/bundles/site")
 }

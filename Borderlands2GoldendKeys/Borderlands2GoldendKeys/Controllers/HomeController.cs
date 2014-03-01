@@ -29,7 +29,6 @@ namespace Borderlands2GoldendKeys.Controllers
 
             homeViewModel.ClapTrapQuote = _documentSession.Query<ClapTrapQuote>().Customize(q => q.RandomOrdering()).First();
 
-
             // TODO get golden keys
             homeViewModel.GoldenKeys = GoldenKey.GetDummyData().Take(5).ToList();
             

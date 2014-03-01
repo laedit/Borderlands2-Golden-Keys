@@ -61,3 +61,7 @@ input[type="checkbox"].input-validation-error {
     color: darkgoldenrod;
     font-family: Defused;
 }
+
+.displaynone {
+    display: none;
+}
