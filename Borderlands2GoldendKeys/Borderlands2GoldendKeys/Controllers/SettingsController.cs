@@ -1,8 +1,6 @@
 ﻿using Borderlands2GoldendKeys.Models;
-using System;
-using System.Collections.Generic;
+using Raven.Client;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Borderlands2GoldendKeys.Controllers
@@ -10,85 +8,32 @@ namespace Borderlands2GoldendKeys.Controllers
     [Authorize(Roles=RoleNames.Admin)]
     public class SettingsController : Controller
     {
+        /// <summary>
+        /// RavenDB document session
+        /// </summary>
+        private IDocumentSession _documentSession;
+
+        public SettingsController(IDocumentSession documentSession)
+        {
+            _documentSession = documentSession;
+        }
+
         //
         // GET: /Settings/
         public ActionResult Index()
         {
-            return View();
+            return View(_documentSession.Query<TwitterSettings>().FirstOrDefault());
         }
 
         //
-        // GET: /Settings/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        //
-        // GET: /Settings/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        //
-        // POST: /Settings/Create
+        // POST: /Settings/
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Index(TwitterSettings twitterSettings)
         {
             try
             {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        //
-        // GET: /Settings/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        //
-        // POST: /Settings/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        //
-        // GET: /Settings/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // TODO import/export Datas: http://westdiscgolf.blogspot.fr/2014/01/ravendb-import-export-in-code.html
-
-        //
-        // POST: /Settings/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
+                _documentSession.Store(twitterSettings);
+                _documentSession.SaveChanges();
 
                 return RedirectToAction("Index");
             }

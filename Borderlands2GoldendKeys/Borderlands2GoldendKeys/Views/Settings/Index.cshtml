@@ -1,0 +1,43 @@
+﻿@model Borderlands2GoldendKeys.Models.TwitterSettings
+
+@{
+    ViewBag.Title = "Settings";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div class="row">
+    <div class="col-md-12">
+        <section id="loginForm">
+            @using (Html.BeginForm("Index", "Settings", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                <h4>Twitter</h4>
+                <hr />
+                @Html.ValidationSummary(true)
+                <div class="form-group">
+                    @Html.LabelFor(m => m.APIKey, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.APIKey, new { @class = "form-control", placeholder = "Twitter API key" })
+                        @Html.ValidationMessageFor(m => m.APIKey)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.APISecret, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.APISecret, new { @class = "form-control", placeholder = "Twitter API secret" })
+                        @Html.ValidationMessageFor(m => m.APISecret)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Save" class="btn btn-default" />
+                    </div>
+                </div>
+            }
+        </section>
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

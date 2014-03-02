@@ -28,8 +28,6 @@ namespace Borderlands2GoldendKeys
             // if necessary
             //IndexCreation.CreateIndexes(Assembly.GetCallingAssembly(), documentStore);
 
-            // TODO initialize here ?
-
             using (IDocumentSession documentSession = documentStore.OpenSession())
             {
                 // Store some ClapTrap's quotes if needed

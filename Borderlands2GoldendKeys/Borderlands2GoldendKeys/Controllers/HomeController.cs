@@ -1,9 +1,7 @@
 ﻿using Borderlands2GoldendKeys.Models;
 using Raven.Client;
-using System.Threading.Tasks;
-using System.Web.Mvc;
 using System.Linq;
-using System;
+using System.Web.Mvc;
 
 namespace Borderlands2GoldendKeys.Controllers
 {
@@ -21,9 +19,6 @@ namespace Borderlands2GoldendKeys.Controllers
 
         public ActionResult Index()
         {
-            // if eTag cache needed
-            // http://stackoverflow.com/questions/937668/how-do-i-support-etags-in-asp-net-mvc
-
             // Get datas
             var homeViewModel = new HomeViewModel();
 
@@ -31,13 +26,20 @@ namespace Borderlands2GoldendKeys.Controllers
 
             // TODO get golden keys
             homeViewModel.GoldenKeys = GoldenKey.GetDummyData().Take(5).ToList();
-            
+
             return View(homeViewModel);
         }
 
         public ActionResult GetRemainingGoldenKeys()
         {
-            return PartialView("_GoldenKeyRowPartial", GoldenKey.GetDummyData().Skip(5).ToList());
+            if (Request.IsAjaxRequest())
+            {
+                return PartialView("_GoldenKeyRowPartial", GoldenKey.GetDummyData().Skip(5).ToList());
+            }
+            else
+            {
+                return Content("Nothing here");
+            }
         }
     }
 }

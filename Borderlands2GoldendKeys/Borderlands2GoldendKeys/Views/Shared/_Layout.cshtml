@@ -15,6 +15,30 @@
 
 </head>
 <body>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <div class="navbar navbar-default ">@*navbar-fixed-top*@
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    @Html.ActionLink("Home", "Index", "Home", null, new { @class = "navbar-brand" })
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Settings", "Index", "Settings")</li>
+                        @*<li>@Html.ActionLink("About", "About", "Home")</li>
+                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
+                    </ul>
+                    @Html.Partial("_LoginPartial")
+                </div>
+            </div>
+        </div>
+    }
+
     <div class="container body-content">
         @RenderBody()
         <hr />
@@ -39,10 +63,12 @@
         </footer>
         <hr />
         <footer>
-            <p>Borderlands 2: Golden Keys v1.0 by <a href="http://laedit.net">Laedit</a> - &copy; @if (DateTime.Now.Year > 2014)
-            { <text>2014 - </text>@DateTime.Now.Year }
-            else
-            {@DateTime.Now.Year}</p>
+            <p>
+                Borderlands 2: Golden Keys v1.0 by <a href="http://laedit.net">Laedit</a> - &copy; @if (DateTime.Now.Year > 2014)
+                { <text>2014 - </text>@DateTime.Now.Year }
+                else
+                {@DateTime.Now.Year}
+            </p>
         </footer>
     </div>
 
