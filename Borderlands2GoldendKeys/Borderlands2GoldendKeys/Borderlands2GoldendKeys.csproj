@@ -211,9 +211,10 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\EnumExtensions.cs" />
+    <Compile Include="Helpers\ShiftCodeRecuperator.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ClapTrapQuote.cs" />
-    <Compile Include="Models\GoldenKey.cs" />
+    <Compile Include="Models\ShiftCode.cs" />
     <Compile Include="Models\HomeViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\RoleNames.cs" />
@@ -264,6 +265,9 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\site.js" />
+    <Content Include="Scripts\site.min.js">
+      <DependentUpon>site.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -283,6 +287,11 @@
     <Content Include="Views\Home\_GoldenKeyRowPartial.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\ExpirationDate.cshtml" />
     <Content Include="Views\Settings\Index.cshtml" />
+    <Content Include="Views\Settings\Test.cshtml" />
+    <Content Include="Scripts\site.min.js.map">
+      <DependentUpon>site.min.js</DependentUpon>
+    </Content>
+    <Content Include="Views\Shared\DisplayTemplates\Platform.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

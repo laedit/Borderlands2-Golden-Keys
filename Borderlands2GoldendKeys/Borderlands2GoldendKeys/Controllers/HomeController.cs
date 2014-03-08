@@ -25,7 +25,7 @@ namespace Borderlands2GoldendKeys.Controllers
             homeViewModel.ClapTrapQuote = _documentSession.Query<ClapTrapQuote>().Customize(q => q.RandomOrdering()).First();
 
             // TODO get golden keys
-            homeViewModel.GoldenKeys = GoldenKey.GetDummyData().Take(5).ToList();
+            homeViewModel.GoldenKeys = ShiftCode.GetDummyData().Take(5).ToList();
 
             return View(homeViewModel);
         }
@@ -34,7 +34,7 @@ namespace Borderlands2GoldendKeys.Controllers
         {
             if (Request.IsAjaxRequest())
             {
-                return PartialView("_GoldenKeyRowPartial", GoldenKey.GetDummyData().Skip(5).ToList());
+                return PartialView("_GoldenKeyRowPartial", ShiftCode.GetDummyData().Skip(5).ToList());
             }
             else
             {

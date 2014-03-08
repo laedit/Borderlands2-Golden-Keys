@@ -4,6 +4,7 @@
 #RavenDB
 Raven/
 local.config
+App_Data
 
 # User-specific files
 *.suo

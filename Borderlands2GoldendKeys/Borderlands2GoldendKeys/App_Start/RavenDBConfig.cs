@@ -18,7 +18,7 @@ namespace Borderlands2GoldendKeys
                 DataDirectory = @"~\App_Data\Database",
 #if DEBUG
                 //UseEmbeddedHttpServer = true,
-                RunInMemory = true,
+                //RunInMemory = true,
 #endif
             };
             documentStore.Conventions.IdentityPartsSeparator = "-";

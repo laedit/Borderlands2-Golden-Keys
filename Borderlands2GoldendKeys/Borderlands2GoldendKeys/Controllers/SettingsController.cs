@@ -1,6 +1,8 @@
-﻿using Borderlands2GoldendKeys.Models;
+﻿using Borderlands2GoldendKeys.Helpers;
+using Borderlands2GoldendKeys.Models;
 using Raven.Client;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace Borderlands2GoldendKeys.Controllers
@@ -42,5 +44,24 @@ namespace Borderlands2GoldendKeys.Controllers
                 return View();
             }
         }
+
+        //
+        // GET: Settings/Test
+        public async Task<ActionResult> Test()
+        {
+            var twitterSettings = _documentSession.Query<TwitterSettings>().FirstOrDefault();
+
+            // TODO use ShiftCodeRecuperator
+            // TODO get real lastId
+            var shiftCodeRecuperator = new ShiftCodeRecuperator(twitterSettings.APIKey, twitterSettings.APISecret);
+            var tweets = await shiftCodeRecuperator.GetBaseRawTweetsAsync();
+            //var tweets = await shiftCodeRecuperator.GetUpdateRawTweetsAsync(440879761649180673);
+            var shiftCodes = ShiftCodeRecuperator.ParseTweets(tweets);
+
+            return View(shiftCodes);
+        }
+
+        // TODO start parse base tweets si base vide + lance cache sinon juste lance cache
+        // => bouton disponible si cache pas déjà en cours
     }
 }

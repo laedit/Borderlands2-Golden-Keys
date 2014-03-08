@@ -1,11 +1,11 @@
-﻿@model List<Borderlands2GoldendKeys.Models.GoldenKey>
+﻿@model List<Borderlands2GoldendKeys.Models.ShiftCode>
 
-@foreach (var key in Model)
+@foreach (var shiftCode in Model)
 {
     <tr>
-        <td>@key.Platform.DisplayName()</td>
-        <td>@key.Key</td>
-        <td>@Html.DisplayFor(m => key.ExpirationDate)</td>
-        <td><a class="btn btn-sm" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></td>
+        <td>@Html.DisplayFor(m => shiftCode.Platform)</td>
+        <td>@Html.DisplayFor(m => shiftCode.Code)</td>
+        <td>@Html.DisplayFor(m => shiftCode.ExpirationDate)</td>
+        <td><a class="btn btn-sm" href="@string.Format("http://twitter.com/GearboxSoftware/status/{0}", shiftCode.SourceStatusId)">Learn more &raquo;</a></td>
     </tr>
 }

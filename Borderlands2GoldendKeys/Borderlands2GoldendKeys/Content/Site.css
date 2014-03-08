@@ -65,3 +65,7 @@ input[type="checkbox"].input-validation-error {
 .displaynone {
     display: none;
 }
+
+.table th, td {
+    text-align: center;
+}
