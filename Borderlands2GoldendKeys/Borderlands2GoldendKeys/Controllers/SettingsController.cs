@@ -1,30 +1,40 @@
 ﻿using Borderlands2GoldendKeys.Helpers;
 using Borderlands2GoldendKeys.Models;
+using Raven.Abstractions.Data;
 using Raven.Client;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace Borderlands2GoldendKeys.Controllers
 {
-    [Authorize(Roles=RoleNames.Admin)]
+    [Authorize(Roles = RoleNames.Admin)]
     public class SettingsController : Controller
     {
         /// <summary>
         /// RavenDB document session
         /// </summary>
         private IDocumentSession _documentSession;
+        private IDocumentStore _documentStore;
 
-        public SettingsController(IDocumentSession documentSession)
+        public SettingsController(IDocumentSession documentSession, IDocumentStore documentStore)
         {
             _documentSession = documentSession;
+            _documentStore = documentStore;
         }
 
         //
         // GET: /Settings/
         public ActionResult Index()
         {
-            return View(_documentSession.Query<TwitterSettings>().FirstOrDefault());
+            var anyDocs = _documentSession.Query<ShiftCode>().Any();
+            var viewModel = new SettingsViewModel();
+            viewModel.TwitterSettings = _documentSession.Query<TwitterSettings>().FirstOrDefault();
+            viewModel.DisableFillDatabaseButton = string.IsNullOrEmpty(viewModel.TwitterSettings.APIKey) || string.IsNullOrEmpty(viewModel.TwitterSettings.APISecret) || anyDocs;
+            viewModel.DisableLaunchUpdateProcessButton = !viewModel.DisableFillDatabaseButton; // TODO
+            viewModel.DisableDeleteAllButton = !anyDocs;
+            return View(viewModel);
         }
 
         //
@@ -51,17 +61,87 @@ namespace Borderlands2GoldendKeys.Controllers
         {
             var twitterSettings = _documentSession.Query<TwitterSettings>().FirstOrDefault();
 
-            // TODO use ShiftCodeRecuperator
-            // TODO get real lastId
             var shiftCodeRecuperator = new ShiftCodeRecuperator(twitterSettings.APIKey, twitterSettings.APISecret);
             var tweets = await shiftCodeRecuperator.GetBaseRawTweetsAsync();
-            //var tweets = await shiftCodeRecuperator.GetUpdateRawTweetsAsync(440879761649180673);
+            //var tweets = await shiftCodeRecuperator.GetUpdateRawTweetsAsync(tweets.Max(t => t.StatusID));
             var shiftCodes = ShiftCodeRecuperator.ParseTweets(tweets);
 
             return View(shiftCodes);
         }
 
+        //
+        // POST: Settings/GetBaseRawTweets
+        [HttpPost]
+        public async Task<JsonResult> GetBaseRawTweets()
+        {
+            SettingsMessage message = null;
+            try
+            {
+                var twitterSettings = _documentSession.Query<TwitterSettings>().FirstOrDefault();
+
+                var shiftCodeRecuperator = new ShiftCodeRecuperator(twitterSettings.APIKey, twitterSettings.APISecret);
+                var tweets = await shiftCodeRecuperator.GetBaseRawTweetsAsync();
+                var shiftCodes = ShiftCodeRecuperator.ParseTweets(tweets);
+
+                shiftCodes.ForEach(s => _documentSession.Store(s));
+                _documentSession.SaveChanges();
+                message = new SettingsMessage
+                {
+                    Success = true,
+                    Message = string.Format("{0} shift codes in database.", shiftCodes.Count)
+                };
+            }
+            catch (Exception ex)
+            {
+                // TODO store in ELMAH
+                message = new SettingsMessage
+                {
+                    Success = false,
+                    Message = string.Format("Exception: {0}.", ex.Message)
+                };
+            }
+            return Json(message, JsonRequestBehavior.DenyGet);
+        }
+
+        //
+        // POST: Settings/LaunchUpdateProcess
+        [HttpPost]
+        public async Task<JsonResult> LaunchUpdateProcess()
+        {
+            SettingsMessage message = null;
+            // TODO
+            return Json(message, JsonRequestBehavior.DenyGet);
+        }
+
+        //
+        // POST: Settings/DeleteAll
+        [HttpPost]
+        public JsonResult DeleteAll()
+        {
+            SettingsMessage message = null;
+
+            try
+            {
+                _documentStore.DatabaseCommands.DeleteByIndex("ShiftCodesIndex", new IndexQuery(), true);
+                message = new SettingsMessage
+                {
+                    Success = true,
+                    Message = string.Format("All shifts codes have been deleted.")
+                };
+            }
+            catch (Exception ex)
+            {
+                // TODO store in ELMAH
+                message = new SettingsMessage
+                {
+                    Success = false,
+                    Message = string.Format("Exception: {0}.", ex.Message)
+                };
+            }
+            return Json(message, JsonRequestBehavior.DenyGet);
+        }
         // TODO start parse base tweets si base vide + lance cache sinon juste lance cache
         // => bouton disponible si cache pas déjà en cours
+        // Query<ShiftCode>().Max(s => s.SourceStatusId) => pour récupérer le lastId
     }
 }

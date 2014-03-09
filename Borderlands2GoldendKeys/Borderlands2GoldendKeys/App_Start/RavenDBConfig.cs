@@ -1,6 +1,8 @@
-﻿using Borderlands2GoldendKeys.Models;
+﻿using Borderlands2GoldendKeys.Helpers;
+using Borderlands2GoldendKeys.Models;
 using Raven.Client;
 using Raven.Client.Embedded;
+using Raven.Client.Indexes;
 using System.Linq;
 
 namespace Borderlands2GoldendKeys
@@ -24,9 +26,8 @@ namespace Borderlands2GoldendKeys
             documentStore.Conventions.IdentityPartsSeparator = "-";
             documentStore.Conventions.DefaultQueryingConsistency = Raven.Client.Document.ConsistencyOptions.AlwaysWaitForNonStaleResultsAsOfLastWrite;
             documentStore.Initialize();
-
-            // if necessary
-            //IndexCreation.CreateIndexes(Assembly.GetCallingAssembly(), documentStore);
+            
+            IndexCreation.CreateIndexes(typeof(ShiftCodesIndex).Assembly, documentStore);
 
             using (IDocumentSession documentSession = documentStore.OpenSession())
             {

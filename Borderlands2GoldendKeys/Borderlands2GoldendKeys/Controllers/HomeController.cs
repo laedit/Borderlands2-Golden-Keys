@@ -23,18 +23,16 @@ namespace Borderlands2GoldendKeys.Controllers
             var homeViewModel = new HomeViewModel();
 
             homeViewModel.ClapTrapQuote = _documentSession.Query<ClapTrapQuote>().Customize(q => q.RandomOrdering()).First();
-
-            // TODO get golden keys
-            homeViewModel.GoldenKeys = ShiftCode.GetDummyData().Take(5).ToList();
+            homeViewModel.ShiftCodes = _documentSession.Query<ShiftCode>().Take(5).ToList();
 
             return View(homeViewModel);
         }
 
-        public ActionResult GetRemainingGoldenKeys()
+        public ActionResult GetRemainingShiftCodes()
         {
             if (Request.IsAjaxRequest())
             {
-                return PartialView("_GoldenKeyRowPartial", ShiftCode.GetDummyData().Skip(5).ToList());
+                return PartialView("_ShiftCodeRowPartial", _documentSession.Query<ShiftCode>().Skip(5).ToList());
             }
             else
             {

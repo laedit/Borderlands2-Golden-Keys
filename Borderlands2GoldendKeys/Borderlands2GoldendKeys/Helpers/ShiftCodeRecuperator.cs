@@ -73,11 +73,6 @@ namespace Borderlands2GoldendKeys.Helpers
             return null;
         }
 
-        public static ulong GetLastId(List<Status> statuses)
-        {
-            return statuses.Max((s) => s.ID);
-        }
-
         public static List<ShiftCode> ParseTweets(List<Status> statuses)
         {
             List<ShiftCode> shiftCodes = new List<ShiftCode>();

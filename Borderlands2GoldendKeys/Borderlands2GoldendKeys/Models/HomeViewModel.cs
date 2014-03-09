@@ -6,11 +6,11 @@ namespace Borderlands2GoldendKeys.Models
     {
         public ClapTrapQuote ClapTrapQuote { get; set; }
 
-        public List<ShiftCode> GoldenKeys { get; set; }
+        public List<ShiftCode> ShiftCodes { get; set; }
 
         public HomeViewModel()
         {
-            GoldenKeys = new List<ShiftCode>();
+            ShiftCodes = new List<ShiftCode>();
         }
     }
 }

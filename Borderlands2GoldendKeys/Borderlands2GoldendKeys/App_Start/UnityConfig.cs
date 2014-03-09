@@ -1,4 +1,3 @@
-using Borderlands2GoldendKeys.Helpers;
 using Microsoft.Practices.Unity;
 using Raven.Client;
 using System.Web.Mvc;
@@ -13,9 +12,8 @@ namespace Borderlands2GoldendKeys
 			var container = new UnityContainer();
 
             var documentStore = RavenDBConfig.InitializeDocumentStore();
+            container.RegisterInstance<IDocumentStore>(documentStore);
             container.RegisterType<IDocumentSession>(new InjectionFactory(c => documentStore.OpenSession()));
-
-            //container.RegisterType<ShiftCodeRecuperator>();
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
