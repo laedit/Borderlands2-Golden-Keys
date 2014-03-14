@@ -17,11 +17,13 @@ namespace Borderlands2GoldendKeys.Controllers
         /// </summary>
         private IDocumentSession _documentSession;
         private IDocumentStore _documentStore;
+        private ShiftCodeUpdateProcess _updateProcess;
 
-        public SettingsController(IDocumentSession documentSession, IDocumentStore documentStore)
+        public SettingsController(IDocumentSession documentSession, IDocumentStore documentStore, ShiftCodeUpdateProcess updateProcess)
         {
             _documentSession = documentSession;
             _documentStore = documentStore;
+            _updateProcess = updateProcess;
         }
 
         //
@@ -32,7 +34,7 @@ namespace Borderlands2GoldendKeys.Controllers
             var viewModel = new SettingsViewModel();
             viewModel.TwitterSettings = _documentSession.Query<TwitterSettings>().FirstOrDefault();
             viewModel.DisableFillDatabaseButton = string.IsNullOrEmpty(viewModel.TwitterSettings.APIKey) || string.IsNullOrEmpty(viewModel.TwitterSettings.APISecret) || anyDocs;
-            viewModel.DisableLaunchUpdateProcessButton = !viewModel.DisableFillDatabaseButton; // TODO
+            viewModel.DisableLaunchUpdateProcessButton = !viewModel.DisableFillDatabaseButton || _updateProcess.IsRunning || string.IsNullOrEmpty(viewModel.TwitterSettings.APIKey) || string.IsNullOrEmpty(viewModel.TwitterSettings.APISecret);
             viewModel.DisableDeleteAllButton = !anyDocs;
             return View(viewModel);
         }
@@ -63,7 +65,7 @@ namespace Borderlands2GoldendKeys.Controllers
 
             var shiftCodeRecuperator = new ShiftCodeRecuperator(twitterSettings.APIKey, twitterSettings.APISecret);
             var tweets = await shiftCodeRecuperator.GetBaseRawTweetsAsync();
-            //var tweets = await shiftCodeRecuperator.GetUpdateRawTweetsAsync(tweets.Max(t => t.StatusID));
+            tweets = await shiftCodeRecuperator.GetUpdateRawTweetsAsync(tweets.Max(t => t.StatusID));
             var shiftCodes = ShiftCodeRecuperator.ParseTweets(tweets);
 
             return View(shiftCodes);
@@ -106,10 +108,39 @@ namespace Borderlands2GoldendKeys.Controllers
         //
         // POST: Settings/LaunchUpdateProcess
         [HttpPost]
-        public async Task<JsonResult> LaunchUpdateProcess()
+        public JsonResult LaunchUpdateProcess()
         {
             SettingsMessage message = null;
-            // TODO
+
+            try
+            {
+                if (_updateProcess.Start())
+                {
+                    message = new SettingsMessage
+                    {
+                        Success = true,
+                        Message = "Update process launched"
+                    };
+                }
+                else
+                { 
+                    // TODO store in ELMAH?
+                    message = new SettingsMessage
+                    {
+                        Success = false,
+                        Message = "Update process already launched"
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                // TODO store in ELMAH
+                message = new SettingsMessage
+                {
+                    Success = false,
+                    Message = string.Format("Exception: {0}.", ex.Message)
+                };
+            }
             return Json(message, JsonRequestBehavior.DenyGet);
         }
 
@@ -122,6 +153,8 @@ namespace Borderlands2GoldendKeys.Controllers
 
             try
             {
+                _updateProcess.Stop();
+
                 _documentStore.DatabaseCommands.DeleteByIndex("ShiftCodesIndex", new IndexQuery(), true);
                 message = new SettingsMessage
                 {
@@ -140,8 +173,15 @@ namespace Borderlands2GoldendKeys.Controllers
             }
             return Json(message, JsonRequestBehavior.DenyGet);
         }
-        // TODO start parse base tweets si base vide + lance cache sinon juste lance cache
-        // => bouton disponible si cache pas déjà en cours
-        // Query<ShiftCode>().Max(s => s.SourceStatusId) => pour récupérer le lastId
+
+        //
+        // GET: Settings/RestardUpdateProcess
+        [AllowAnonymous]
+        public ActionResult RestardUpdateProcess()
+        {
+            return Content("Ok");
+        }
+
+        // TODO data import / export? => not a priority, tweets are perishable datas and there are all loaded when filling database
     }
 }

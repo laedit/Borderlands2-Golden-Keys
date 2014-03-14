@@ -110,6 +110,8 @@ namespace Borderlands2GoldendKeys.Helpers
                         shiftCode.ExpirationDate = new DateTime(status.CreatedAt.Year, GetIntFromCaptureCollection(rawExpirationDate.Groups[1].Captures), GetIntFromCaptureCollection(rawExpirationDate.Groups[2].Captures));
                     }
 
+                    shiftCode.CreationDate = status.CreatedAt;
+
                     shiftCode.SourceStatusId = status.StatusID;
 
                     shiftCodes.Add(shiftCode);

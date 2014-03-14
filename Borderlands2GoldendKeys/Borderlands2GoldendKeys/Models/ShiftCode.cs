@@ -17,23 +17,7 @@ namespace Borderlands2GoldendKeys.Models
 
         public ulong SourceStatusId { get; set; }
 
-        public static List<ShiftCode> GetDummyData()
-        {
-            return new List<ShiftCode> {
-                new ShiftCode { Code = "C3KJ3-WCZW3-H5TFK-BTB3T-9RKTZ", ExpirationDate = DateTime.Now.AddDays(1), Platform = Platform.PC_MAC, SourceStatusId = 440879761649180673 },
-                new ShiftCode { Code = "C3KJ3-WCZW3-H5TFK-BTB3T-9RKTZ", ExpirationDate = new DateTime(2014, 02, 24), Platform = Platform.XBOX, SourceStatusId = 440879761649180673 },
-                new ShiftCode { Code = "C3KJ3-WCZW3-H5TFK-BTB3T-9RKTZ", ExpirationDate = null, Platform = Platform.PS3, SourceStatusId = 440879761649180673 },
-                 new ShiftCode { Code = "C3KJ3-WCZW3-H5TFK-BTB3T-9RKTZ", ExpirationDate = DateTime.Now.AddDays(1), Platform = Platform.PC_MAC, SourceStatusId = 440879761649180673 },
-                new ShiftCode { Code = "C3KJ3-WCZW3-H5TFK-BTB3T-9RKTZ", ExpirationDate = new DateTime(2014, 02, 24), Platform = Platform.XBOX, SourceStatusId = 440879761649180673 },
-                new ShiftCode { Code = "C3KJ3-WCZW3-H5TFK-BTB3T-9RKTZ", ExpirationDate = null, Platform = Platform.PS3, SourceStatusId = 440879761649180673 },
-                 new ShiftCode { Code = "C3KJ3-WCZW3-H5TFK-BTB3T-9RKTZ", ExpirationDate = DateTime.Now.AddDays(1), Platform = Platform.PC_MAC, SourceStatusId = 440879761649180673 },
-                new ShiftCode { Code = "C3KJ3-WCZW3-H5TFK-BTB3T-9RKTZ", ExpirationDate = new DateTime(2014, 02, 24), Platform = Platform.XBOX, SourceStatusId = 440879761649180673 },
-                new ShiftCode { Code = "C3KJ3-WCZW3-H5TFK-BTB3T-9RKTZ", ExpirationDate = null, Platform = Platform.PS3, SourceStatusId = 440879761649180673 },
-                 new ShiftCode { Code = "C3KJ3-WCZW3-H5TFK-BTB3T-9RKTZ", ExpirationDate = DateTime.Now.AddDays(1), Platform = Platform.PC_MAC, SourceStatusId = 440879761649180673 },
-                new ShiftCode { Code = "C3KJ3-WCZW3-H5TFK-BTB3T-9RKTZ", ExpirationDate = new DateTime(2014, 02, 24), Platform = Platform.XBOX, SourceStatusId = 440879761649180673 },
-                new ShiftCode { Code = "C3KJ3-WCZW3-H5TFK-BTB3T-9RKTZ", ExpirationDate = null, Platform = Platform.PS3, SourceStatusId = 440879761649180673 }
-            };
-        }
+        public DateTime CreationDate { get; set; }
     }
 
     public enum Platform

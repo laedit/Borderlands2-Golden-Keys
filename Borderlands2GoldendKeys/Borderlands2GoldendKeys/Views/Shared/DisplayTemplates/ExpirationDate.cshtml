@@ -6,7 +6,7 @@
     
     if(Model.HasValue)
     {
-        formatedDate = Model.Value.ToString("MM/dd/yyyy");
+        formatedDate = Model.Value.ToString("d MMM yyyy", new System.Globalization.CultureInfo("en-us"));
         
         if(Model.Value > DateTime.Today)
         {

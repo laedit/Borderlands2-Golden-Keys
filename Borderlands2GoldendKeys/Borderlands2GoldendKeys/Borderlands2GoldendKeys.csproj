@@ -213,6 +213,7 @@
     <Compile Include="Helpers\EnumExtensions.cs" />
     <Compile Include="Helpers\ShiftCodeRecuperator.cs" />
     <Compile Include="Helpers\ShiftCodesIndex.cs" />
+    <Compile Include="Helpers\ShiftCodeUpdateProcess.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ClapTrapQuote.cs" />
     <Compile Include="Models\SettingsViewModels.cs" />

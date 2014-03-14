@@ -29,17 +29,6 @@ namespace Borderlands2GoldendKeys
             
             IndexCreation.CreateIndexes(typeof(ShiftCodesIndex).Assembly, documentStore);
 
-            using (IDocumentSession documentSession = documentStore.OpenSession())
-            {
-                // Store some ClapTrap's quotes if needed
-                if (!documentSession.Query<ClapTrapQuote>().Any())
-                {
-                    ClapTrapQuote.GetBaseQuotes().ForEach(q => documentSession.Store(q));
-                }
-
-                documentSession.SaveChanges();
-            }
-
             return documentStore;
         }
     }
