@@ -17,13 +17,22 @@ namespace Borderlands2GoldendKeys.Controllers
             _documentSession = documentSession;
         }
 
-        public ActionResult Index()
+        public ActionResult Index(string id)
         {
             // Get datas
             var homeViewModel = new HomeViewModel();
 
             homeViewModel.ClapTrapQuote = _documentSession.Query<ClapTrapQuote>().Customize(q => q.RandomOrdering()).First();
-            homeViewModel.ShiftCodes = GetShiftCodesBaseQuery().Take(5).ToList();
+
+            if (string.Equals("showall", id, System.StringComparison.OrdinalIgnoreCase))
+            {
+                homeViewModel.ShiftCodes = GetShiftCodesBaseQuery().ToList();
+                homeViewModel.DisableShallAllButton = true;
+            }
+            else
+            {
+                homeViewModel.ShiftCodes = GetShiftCodesBaseQuery().Take(5).ToList();
+            }
 
             return View(homeViewModel);
         }

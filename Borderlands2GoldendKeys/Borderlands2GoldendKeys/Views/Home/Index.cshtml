@@ -36,14 +36,16 @@
             </table>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-4 col-md-offset-4">
-            <div id="showAllError" class="displaynone alert alert-danger"><strong>AHHHHHHHHHHHHHHHHH! Dang.</strong> My bad.</div>
+    if (!Model.DisableShallAllButton)
+    {
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div id="showAllError" class="displaynone alert alert-danger"><strong>AHHHHHHHHHHHHHHHHH! Dang.</strong> My bad.</div>
+            </div>
         </div>
-    </div>
-    <div class="row text-center">
-        <div class="col-md-2 col-md-offset-5">
-            @using (Ajax.BeginForm("GetRemainingShiftCodes", new AjaxOptions
+        <div class="row text-center">
+            <div class="col-md-2 col-md-offset-5">
+                @using (Ajax.BeginForm("GetRemainingShiftCodes", new AjaxOptions
         {
             InsertionMode = InsertionMode.InsertAfter,
             LoadingElementId = "ajaxLoader",
@@ -52,18 +54,19 @@
             OnFailure = "ShowAllFailure",
             OnSuccess = "ShowAllSuccess"
         }))
-            {
-                <input id="showAllButton" type="submit" value="Show all" class="btn btn-default btn-sm" />
-            }
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-2 col-md-offset-5">
-            <div id="ajaxLoader" class="displaynone progress progress-striped active">
-                <div class="progress-bar" style="width: 100%"></div>
+                {
+                    <input id="showAllButton" type="submit" value="Show all" class="btn btn-default btn-sm" />
+                }
             </div>
         </div>
-    </div>
+        <div class="row">
+            <div class="col-md-2 col-md-offset-5">
+                <div id="ajaxLoader" class="displaynone progress progress-striped active">
+                    <div class="progress-bar" style="width: 100%"></div>
+                </div>
+            </div>
+        </div>
+    }
 }
 else
 {

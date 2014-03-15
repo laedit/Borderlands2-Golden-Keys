@@ -19,6 +19,7 @@ function ShowAllFailure() {
 function ShowAllBegin() {
     $('#showAllButton').hide();
     $('#showAllError').hide();
+    window.history.replaceState(null, "Borderlands 2: Golden Keys", "/ShowAll")
 }
 
 function SettingsSuccess(data, messageName) {

@@ -8,6 +8,8 @@ namespace Borderlands2GoldendKeys.Models
 
         public List<ShiftCode> ShiftCodes { get; set; }
 
+        public bool DisableShallAllButton { get; set; }
+
         public HomeViewModel()
         {
             ShiftCodes = new List<ShiftCode>();
