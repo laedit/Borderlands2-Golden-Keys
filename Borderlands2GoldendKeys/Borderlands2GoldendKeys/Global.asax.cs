@@ -56,10 +56,10 @@ namespace Borderlands2GoldendKeys
             if (string.IsNullOrEmpty(BaseUrl))
             {
                 BaseUrl = HttpContext.Current.Request.Url.AbsoluteUri;
-                string query = HttpContext.Current.Request.Url.Query;
-                if (!string.IsNullOrEmpty(query))
+                string path = HttpContext.Current.Request.Url.AbsolutePath;
+                if (!string.IsNullOrEmpty(path))
                 {
-                    BaseUrl = BaseUrl.Replace(query, string.Empty);
+                    BaseUrl = BaseUrl.Replace(path, string.Empty);
                 }
             }
 
