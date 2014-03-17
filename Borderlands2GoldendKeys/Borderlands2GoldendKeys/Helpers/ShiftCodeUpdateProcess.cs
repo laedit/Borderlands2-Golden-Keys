@@ -55,9 +55,9 @@ namespace Borderlands2GoldendKeys.Helpers
 
         private async Task UpdateShiftCodesAsync()
         {
-            var twitterSettings = _documentSession.Query<TwitterSettings>().FirstOrDefault();
+            var settings = _documentSession.Load<Settings>(Settings.UniqueId);
 
-            var shiftCodeRecuperator = new ShiftCodeRecuperator(twitterSettings.APIKey, twitterSettings.APISecret);
+            var shiftCodeRecuperator = new ShiftCodeRecuperator(settings.Twitter.APIKey, settings.Twitter.APISecret);
             var lastId = _documentSession.Advanced.LuceneQuery<ShiftCode>().Select(s => s.SourceStatusId).Max();
 
             var statuses = await shiftCodeRecuperator.GetUpdateRawTweetsAsync(lastId);

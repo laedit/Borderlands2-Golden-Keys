@@ -13,18 +13,19 @@ namespace Borderlands2GoldendKeys
         {
 
 #if DEBUG
-            //NonAdminHttp.EnsureCanListenToWhenInNonAdminContext(8080);
+            Raven.Database.Server.NonAdminHttp.EnsureCanListenToWhenInNonAdminContext(8080);
 #endif
             var documentStore = new EmbeddableDocumentStore
             {
                 DataDirectory = @"~\App_Data\Database",
 #if DEBUG
-                //UseEmbeddedHttpServer = true,
+                UseEmbeddedHttpServer = true,
                 //RunInMemory = true,
 #endif
             };
             documentStore.Conventions.IdentityPartsSeparator = "-";
             documentStore.Conventions.DefaultQueryingConsistency = Raven.Client.Document.ConsistencyOptions.AlwaysWaitForNonStaleResultsAsOfLastWrite;
+            documentStore.Conventions.RegisterIdConvention<Settings>((dbname, commands, user) => Settings.UniqueId);
             documentStore.Initialize();
             
             IndexCreation.CreateIndexes(typeof(ShiftCodesIndex).Assembly, documentStore);

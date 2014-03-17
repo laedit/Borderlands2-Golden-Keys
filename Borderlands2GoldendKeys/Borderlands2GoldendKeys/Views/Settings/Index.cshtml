@@ -12,23 +12,93 @@
             @using (Html.BeginForm("Index", "Settings", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
                 @Html.AntiForgeryToken()
+                @Html.HiddenFor(m => m.Settings.Id)
                 <h4>Twitter</h4>
                 <hr />
                 @Html.ValidationSummary(true)
                 <div class="form-group">
-                    @Html.LabelFor(m => m.TwitterSettings.APIKey, new { @class = "col-md-2 control-label" })
+                    @Html.LabelFor(m => m.Settings.Twitter.APIKey, new { @class = "col-md-2 control-label" })
                     <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.TwitterSettings.APIKey, new { @class = "form-control", placeholder = "Twitter API key" })
-                        @Html.ValidationMessageFor(m => m.TwitterSettings.APIKey)
+                        @Html.TextBoxFor(m => m.Settings.Twitter.APIKey, new { @class = "form-control", placeholder = "Twitter API key" })
+                        @Html.ValidationMessageFor(m => m.Settings.Twitter.APIKey)
                     </div>
                 </div>
                 <div class="form-group">
-                    @Html.LabelFor(m => m.TwitterSettings.APISecret, new { @class = "col-md-2 control-label" })
+                    @Html.LabelFor(m => m.Settings.Twitter.APISecret, new { @class = "col-md-2 control-label" })
                     <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.TwitterSettings.APISecret, new { @class = "form-control", placeholder = "Twitter API secret" })
-                        @Html.ValidationMessageFor(m => m.TwitterSettings.APISecret)
+                        @Html.TextBoxFor(m => m.Settings.Twitter.APISecret, new { @class = "form-control", placeholder = "Twitter API secret" })
+                        @Html.ValidationMessageFor(m => m.Settings.Twitter.APISecret)
                     </div>
                 </div>
+
+                <h4>ReCaptcha</h4>
+                <hr />
+                @Html.ValidationSummary(true)
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Settings.ReCaptcha.PublicKey, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Settings.ReCaptcha.PublicKey, new { @class = "form-control", placeholder = "Public key" })
+                        @Html.ValidationMessageFor(m => m.Settings.ReCaptcha.PublicKey)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Settings.ReCaptcha.PrivateKey, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Settings.ReCaptcha.PrivateKey, new { @class = "form-control", placeholder = "Private key" })
+                        @Html.ValidationMessageFor(m => m.Settings.ReCaptcha.PrivateKey)
+                    </div>
+                </div>
+
+                <h4>Analytic</h4>
+                <hr />
+                @Html.ValidationSummary(true)
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Settings.Analytics.Key, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Settings.Analytics.Key, new { @class = "form-control", placeholder = "Google analytics key" })
+                        @Html.ValidationMessageFor(m => m.Settings.Analytics.Key)
+                    </div>
+                </div>
+
+                <h4>Mail</h4>
+                <hr />
+                @Html.ValidationSummary(true)
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Settings.Mail.SmtpHost, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Settings.Mail.SmtpHost, new { @class = "form-control", placeholder = "SMTP host" })
+                        @Html.ValidationMessageFor(m => m.Settings.Mail.SmtpHost)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Settings.Mail.SmtpPort, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Settings.Mail.SmtpPort, new { @class = "form-control", placeholder = "SMTP port" })
+                        @Html.ValidationMessageFor(m => m.Settings.Mail.SmtpPort)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Settings.Mail.UseSsl, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.CheckBoxFor(m => m.Settings.Mail.UseSsl, new { @class = "form-control", placeholder = "Use SSL" })
+                        @Html.ValidationMessageFor(m => m.Settings.Mail.UseSsl)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Settings.Mail.DestinationMail, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Settings.Mail.DestinationMail, new { @class = "form-control", placeholder = "Destination mail" })
+                        @Html.ValidationMessageFor(m => m.Settings.Mail.DestinationMail)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Settings.Mail.Password, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Settings.Mail.Password, new { @class = "form-control", placeholder = "Password" })
+                        @Html.ValidationMessageFor(m => m.Settings.Mail.Password)
+                    </div>
+                </div>
+
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
                         <input type="submit" value="Save" class="btn btn-default" />
@@ -41,7 +111,20 @@
 
 <div class="row">
     <div class="col-md-12">
-        <h4>Data processing</h4>
+        <h4>
+            Data processing 
+            @if (Model.UpdateRunning)
+            {
+                <small id="updateStatus" class="text-success">Update running</small>
+            }
+            else
+            {
+                <small id="updateStatus" class="text-danger">Update not running</small>
+            }
+        </h4>
+
+
+
         <hr />
     </div>
 </div>
@@ -57,7 +140,7 @@
         }))
         {
             <input id="BaseTweetsButton"
-                   @if (Model.DisableFillDatabaseButton) { <text> disabled="disabled" </text> }
+                   @if (Model.DisableFillDatabaseButton) { <text> disabled="disabled" </text>  }
                    type="submit" value="Fill database"
                    class="btn btn-default btn-sm" />
         }
@@ -86,12 +169,12 @@
             OnFailure = "LaunchUpdateProcessFailure",
             OnSuccess = "LaunchUpdateProcessSuccess"
         }))
-{
-    <input id="LaunchUpdateProcess"
-           disabled="@Model.DisableLaunchUpdateProcessButton"
-           type="submit" value="Launch update process"
-           class="btn btn-default btn-sm" />
-}
+        {
+            <input id="LaunchUpdateProcess"
+                   disabled="@Model.DisableLaunchUpdateProcessButton"
+                   type="submit" value="Launch update process"
+                   class="btn btn-default btn-sm" />
+        }
     </div>
     <div class="col-md-4">
         <div id="ajaxLoader2" class="displaynone progress progress-striped active">
@@ -119,7 +202,7 @@
         }))
         {
             <input id="DeleteAll"
-                   @if (Model.DisableDeleteAllButton) { <text> disabled="disabled" </text> }
+                   @if (Model.DisableDeleteAllButton) { <text> disabled="disabled" </text>  }
                    type="submit" value="Delete all"
                    class="btn btn-default btn-sm btn-danger" />
         }
@@ -132,6 +215,7 @@
         </div>
     </div>
 </div>
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

@@ -32,38 +32,31 @@ namespace Borderlands2GoldendKeys.Controllers
         {
             var anyDocs = _documentSession.Query<ShiftCode>().Any();
             var viewModel = new SettingsViewModel();
-            viewModel.TwitterSettings = _documentSession.Query<TwitterSettings>().FirstOrDefault();
-            viewModel.DisableFillDatabaseButton = string.IsNullOrEmpty(viewModel.TwitterSettings.APIKey) || string.IsNullOrEmpty(viewModel.TwitterSettings.APISecret) || anyDocs;
-            viewModel.DisableLaunchUpdateProcessButton = !viewModel.DisableFillDatabaseButton || _updateProcess.IsRunning || string.IsNullOrEmpty(viewModel.TwitterSettings.APIKey) || string.IsNullOrEmpty(viewModel.TwitterSettings.APISecret);
+            viewModel.Settings = _documentSession.Load<Settings>(Settings.UniqueId);
+            viewModel.DisableFillDatabaseButton = viewModel.Settings == null || viewModel.Settings.Twitter == null || !viewModel.Settings.Twitter.IsComplete || anyDocs;
+            viewModel.DisableLaunchUpdateProcessButton = !viewModel.DisableFillDatabaseButton || _updateProcess.IsRunning || viewModel.Settings == null || viewModel.Settings.Twitter == null || !viewModel.Settings.Twitter.IsComplete;
             viewModel.DisableDeleteAllButton = !anyDocs;
+            viewModel.UpdateRunning = _updateProcess.IsRunning;
             return View(viewModel);
         }
 
         //
         // POST: /Settings/
         [HttpPost]
-        public ActionResult Index(TwitterSettings twitterSettings)
+        public ActionResult Index(Settings settings)
         {
-            try
-            {
-                _documentSession.Store(twitterSettings);
-                _documentSession.SaveChanges();
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            _documentSession.Store(settings);
+            _documentSession.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         //
         // GET: Settings/Test
         public async Task<ActionResult> Test()
         {
-            var twitterSettings = _documentSession.Query<TwitterSettings>().FirstOrDefault();
+            var twitterSettings = _documentSession.Query<Settings>().FirstOrDefault();
 
-            var shiftCodeRecuperator = new ShiftCodeRecuperator(twitterSettings.APIKey, twitterSettings.APISecret);
+            var shiftCodeRecuperator = new ShiftCodeRecuperator(twitterSettings.Twitter.APIKey, twitterSettings.Twitter.APISecret);
             var tweets = await shiftCodeRecuperator.GetBaseRawTweetsAsync();
             tweets = await shiftCodeRecuperator.GetUpdateRawTweetsAsync(tweets.Max(t => t.StatusID));
             var shiftCodes = ShiftCodeRecuperator.ParseTweets(tweets);
@@ -76,18 +69,18 @@ namespace Borderlands2GoldendKeys.Controllers
         [HttpPost]
         public async Task<JsonResult> GetBaseRawTweets()
         {
-            SettingsMessage message = null;
+            ResultMessage message = null;
             try
             {
-                var twitterSettings = _documentSession.Query<TwitterSettings>().FirstOrDefault();
+                var twitterSettings = _documentSession.Query<Settings>().FirstOrDefault();
 
-                var shiftCodeRecuperator = new ShiftCodeRecuperator(twitterSettings.APIKey, twitterSettings.APISecret);
+                var shiftCodeRecuperator = new ShiftCodeRecuperator(twitterSettings.Twitter.APIKey, twitterSettings.Twitter.APISecret);
                 var tweets = await shiftCodeRecuperator.GetBaseRawTweetsAsync();
                 var shiftCodes = ShiftCodeRecuperator.ParseTweets(tweets);
 
                 shiftCodes.ForEach(s => _documentSession.Store(s));
                 _documentSession.SaveChanges();
-                message = new SettingsMessage
+                message = new ResultMessage
                 {
                     Success = true,
                     Message = string.Format("{0} shift codes in database.", shiftCodes.Count)
@@ -96,7 +89,7 @@ namespace Borderlands2GoldendKeys.Controllers
             catch (Exception ex)
             {
                 // TODO store in ELMAH
-                message = new SettingsMessage
+                message = new ResultMessage
                 {
                     Success = false,
                     Message = string.Format("Exception: {0}.", ex.Message)
@@ -110,22 +103,22 @@ namespace Borderlands2GoldendKeys.Controllers
         [HttpPost]
         public JsonResult LaunchUpdateProcess()
         {
-            SettingsMessage message = null;
+            ResultMessage message = null;
 
             try
             {
                 if (_updateProcess.Start())
                 {
-                    message = new SettingsMessage
+                    message = new ResultMessage
                     {
                         Success = true,
                         Message = "Update process launched"
                     };
                 }
                 else
-                { 
+                {
                     // TODO store in ELMAH?
-                    message = new SettingsMessage
+                    message = new ResultMessage
                     {
                         Success = false,
                         Message = "Update process already launched"
@@ -135,7 +128,7 @@ namespace Borderlands2GoldendKeys.Controllers
             catch (Exception ex)
             {
                 // TODO store in ELMAH
-                message = new SettingsMessage
+                message = new ResultMessage
                 {
                     Success = false,
                     Message = string.Format("Exception: {0}.", ex.Message)
@@ -149,14 +142,14 @@ namespace Borderlands2GoldendKeys.Controllers
         [HttpPost]
         public JsonResult DeleteAll()
         {
-            SettingsMessage message = null;
+            ResultMessage message = null;
 
             try
             {
                 _updateProcess.Stop();
 
                 _documentStore.DatabaseCommands.DeleteByIndex("ShiftCodesIndex", new IndexQuery(), true);
-                message = new SettingsMessage
+                message = new ResultMessage
                 {
                     Success = true,
                     Message = string.Format("All shifts codes have been deleted.")
@@ -165,7 +158,7 @@ namespace Borderlands2GoldendKeys.Controllers
             catch (Exception ex)
             {
                 // TODO store in ELMAH
-                message = new SettingsMessage
+                message = new ResultMessage
                 {
                     Success = false,
                     Message = string.Format("Exception: {0}.", ex.Message)

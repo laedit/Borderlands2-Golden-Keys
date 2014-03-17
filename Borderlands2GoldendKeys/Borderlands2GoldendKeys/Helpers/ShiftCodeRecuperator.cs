@@ -17,30 +17,41 @@ namespace Borderlands2GoldendKeys.Helpers
         private static Regex _computerRegex = new Regex(@"(?i)pc[ ]{0,1}/[ ]{0,1}mac", RegexOptions.Compiled);
         private static Regex _expirationDateRegex = new Regex(@"\[.*?(\d){1,2}/(\d){1,2}\]", RegexOptions.Compiled);
 
-        private TwitterContext _twitterContext;
+        private string _apiKey;
+        private string _apiSecret;
 
         public ShiftCodeRecuperator(string apiKey, string apiSecret)
         {
-            _twitterContext = new TwitterContext(new ApplicationOnlyAuthorizer
+            _apiKey = apiKey;
+            _apiSecret = apiSecret;
+        }
+
+        private async Task<TwitterContext> InitializeTwitterContextAsync()
+        {
+            var twitterContext = new TwitterContext(new ApplicationOnlyAuthorizer
             {
                 CredentialStore = new InMemoryCredentialStore
                 {
-                    ConsumerKey = apiKey,
-                    ConsumerSecret = apiSecret,
+                    ConsumerKey = _apiKey,
+                    ConsumerSecret = _apiSecret,
                 },
                 AccessType = AuthAccessType.Read
             });
+
+            await twitterContext.Authorizer.AuthorizeAsync();
+
+            return twitterContext;
         }
 
         public async Task<List<Status>> GetBaseRawTweetsAsync()
         {
-            await _twitterContext.Authorizer.AuthorizeAsync();
+            var twitterContext = await InitializeTwitterContextAsync();
 
-            var searchResponse = await (from search in _twitterContext.Status
-                                         where search.Type == StatusType.User &&
-                                               search.ScreenName == "GearboxSoftware" &&
-                                               search.Count == 3200
-                                         select search)
+            var searchResponse = await (from search in twitterContext.Status
+                                        where search.Type == StatusType.User &&
+                                              search.ScreenName == "GearboxSoftware" &&
+                                              search.Count == 3200
+                                        select search)
                                         .ToListAsync();
 
             if (searchResponse != null && searchResponse.Count > 0)
@@ -55,14 +66,14 @@ namespace Borderlands2GoldendKeys.Helpers
 
         public async Task<List<Status>> GetUpdateRawTweetsAsync(ulong lastId)
         {
-            await _twitterContext.Authorizer.AuthorizeAsync();
+            var twitterContext = await InitializeTwitterContextAsync();
 
-            var searchResponse = await (from search in _twitterContext.Search
-                                         where search.Type == SearchType.Search &&
-                                               search.SinceID == lastId &&
-                                               search.IncludeEntities == false &&
-                                               search.Query == "from:GearboxSoftware Golden Borderlands"
-                                         select search)
+            var searchResponse = await (from search in twitterContext.Search
+                                        where search.Type == SearchType.Search &&
+                                              search.SinceID == lastId &&
+                                              search.IncludeEntities == false &&
+                                              search.Query == "from:GearboxSoftware Golden Borderlands"
+                                        select search)
                                         .SingleOrDefaultAsync();
 
             if (searchResponse != null && searchResponse.Statuses != null)
@@ -129,7 +140,5 @@ namespace Borderlands2GoldendKeys.Helpers
             }
             return int.Parse(sb.ToString());
         }
-
-
     }
 }

@@ -91,14 +91,57 @@ else
                 </div>
                 <div id="collapseIssues" class="panel-collapse collapse">
                     <div class="panel-body">
-                        <p>
-                            You could go in the <a href="https://github.com/laedit/Borderlands2-Golden-Keys/issues" title="Borderlands 2: Golden Keys GitHub issues">GitHub issues</a>.
-                        </p>
-                        <p>
-                            Or you could just send me a mail :
-                            <br />
-                            (soon...)
-                        </p>
+                        <div class="row">
+                            <div class="col-md-12">
+                                You could go in the <a href="https://github.com/laedit/Borderlands2-Golden-Keys/issues" title="Borderlands 2: Golden Keys GitHub issues">GitHub issues</a>.
+                            </div>
+                        </div>
+                        @if (Model.EnableMail)
+                        {
+                            <div class="row">
+                                @using (Ajax.BeginForm("SendMail", null, new AjaxOptions
+                                {
+                                    LoadingElementId = "mailLoader",
+                                    OnBegin = "SendMailBegin",
+                                    OnFailure = "SendMailFailure",
+                                    OnSuccess = "SendMailSuccess"
+                                }, new { @class = "form-horizontal col-md-12" }))
+                                {
+                                    <div id="mailForm">
+                                        Or you could just send a mail :
+                                        <br />
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Mail.MailFrom, new { @class = "col-md-2 control-label sr-only" })
+                                            <div class="col-md-12">
+                                                @Html.TextBoxFor(m => m.Mail.MailFrom, new { @class = "form-control", placeholder = "Email" })
+                                                @Html.ValidationMessageFor(m => m.Mail.MailFrom)
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Mail.Message, new { @class = "col-md-2 control-label sr-only" })
+                                            <div class="col-md-12">
+                                                @Html.TextAreaFor(m => m.Mail.Message, new { @class = "form-control", placeholder = "Message" })
+                                                @Html.ValidationMessageFor(m => m.Mail.Message)
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                                <input type="submit" id="sendMailButton" value="Send mail" class="btn btn-default pull-right" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <div id="mailLoader" class="displaynone progress progress-striped active">
+                                                <div class="progress-bar" style="width: 100%"></div>
+                                            </div>
+                                            <div id="mailResult">
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        }
                     </div>
                 </div>
             </div>
@@ -122,6 +165,7 @@ else
 
 @section scripts
 {
+    @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/jqueryunobt")
     @Scripts.Render("~/bundles/site")
     <script type="text/javascript">

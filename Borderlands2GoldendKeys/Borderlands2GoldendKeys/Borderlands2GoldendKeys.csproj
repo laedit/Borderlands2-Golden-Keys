@@ -14,7 +14,7 @@
     <RootNamespace>Borderlands2GoldendKeys</RootNamespace>
     <AssemblyName>Borderlands2GoldendKeys</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <MvcBuildViews>false</MvcBuildViews>
+    <MvcBuildViews>true</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
@@ -216,12 +216,12 @@
     <Compile Include="Helpers\ShiftCodeUpdateProcess.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ClapTrapQuote.cs" />
+    <Compile Include="Models\ResultMessage.cs" />
     <Compile Include="Models\SettingsViewModels.cs" />
     <Compile Include="Models\ShiftCode.cs" />
     <Compile Include="Models\HomeViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\RoleNames.cs" />
-    <Compile Include="Models\TwitterSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>

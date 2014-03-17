@@ -1,6 +1,8 @@
 ﻿using Borderlands2GoldendKeys.Models;
 using Raven.Client;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Web.Mvc;
 
 namespace Borderlands2GoldendKeys.Controllers
@@ -23,6 +25,7 @@ namespace Borderlands2GoldendKeys.Controllers
             var homeViewModel = new HomeViewModel();
 
             homeViewModel.ClapTrapQuote = _documentSession.Query<ClapTrapQuote>().Customize(q => q.RandomOrdering()).First();
+            homeViewModel.EnableMail = _documentSession.Load<Settings>(Settings.UniqueId).Mail.IsComplete;
 
             if (string.Equals("showall", id, System.StringComparison.OrdinalIgnoreCase))
             {
@@ -52,6 +55,36 @@ namespace Borderlands2GoldendKeys.Controllers
             {
                 return Content("Nothing here");
             }
+        }
+
+        [HttpPost]
+        public JsonResult SendMail(Mail mail)
+        {
+            ResultMessage resultMessage = new ResultMessage { Success = false };
+            if(ModelState.IsValid)
+            {
+                // Verification of the mail address
+                MailAddress mailAddress = new MailAddress(mail.MailFrom);
+
+                var mailSettings = _documentSession.Load<Settings>(Settings.UniqueId).Mail;
+                using (var client = new SmtpClient(mailSettings.SmtpHost, mailSettings.SmtpPort))
+                {
+                    string mailId = mailSettings.DestinationMail;
+                    string mailPassword = mailSettings.Password;
+
+                    client.Credentials = new NetworkCredential(mailId, mailPassword);
+                    client.EnableSsl = true;
+
+                    client.Send(
+                        @from: mailId,
+                        recipients: mailId,
+                        subject: "A word from Borderlands 2: Golden Keys",
+                        body: string.Format("From: {0}.\r\n\r\n{1}", mailAddress.Address, mail.Message));
+                }
+                resultMessage.Success = true;
+            }
+
+            return Json(resultMessage);
         }
     }
 }

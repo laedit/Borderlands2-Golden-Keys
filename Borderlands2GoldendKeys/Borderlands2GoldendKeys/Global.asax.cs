@@ -42,8 +42,8 @@ namespace Borderlands2GoldendKeys
                 }
 
                 var updateProcess = _unityContainer.Resolve<ShiftCodeUpdateProcess>();
-                var twitterSettings = documentSession.Query<TwitterSettings>().FirstOrDefault();
-                if (!updateProcess.IsRunning && !string.IsNullOrEmpty(twitterSettings.APIKey) && !string.IsNullOrEmpty(twitterSettings.APISecret))
+                var settings = documentSession.Load<Settings>(Settings.UniqueId);
+                if (!updateProcess.IsRunning && settings != null && settings.Twitter != null && settings.Twitter.IsComplete)
                 {
                     updateProcess.Start();
                 }
@@ -59,7 +59,14 @@ namespace Borderlands2GoldendKeys
                 string path = HttpContext.Current.Request.Url.AbsolutePath;
                 if (!string.IsNullOrEmpty(path))
                 {
-                    BaseUrl = BaseUrl.Replace(path, string.Empty);
+                    if (path == "/")
+                    {
+                        BaseUrl = BaseUrl.Remove(BaseUrl.Length - 1);
+                    }
+                    else
+                    {
+                        BaseUrl = BaseUrl.Replace(path, string.Empty);
+                    }
                 }
             }
 
