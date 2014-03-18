@@ -12,13 +12,17 @@
     </title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/ga")
 
     <meta name="description" content="Borderlands 2: Golden keys provides SHift Codes from GearboxSoftware's twiter" />
 </head>
 <body>
+    <script type="text/javascript">
+        CallAnalytics();
+    </script>
     @if (User.Identity.IsAuthenticated)
     {
-        <div class="navbar navbar-default ">@*navbar-fixed-top*@
+        <div class="navbar navbar-default ">
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -31,8 +35,6 @@
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li>@Html.ActionLink("Settings", "Index", "Settings")</li>
-                        @*<li>@Html.ActionLink("About", "About", "Home")</li>
-                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
                     </ul>
                     @Html.Partial("_LoginPartial")
                 </div>

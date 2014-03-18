@@ -98,6 +98,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.6.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="PoliteCaptcha">
+      <HintPath>..\packages\PoliteCaptcha.0.4.0.1\lib\net40\PoliteCaptcha.dll</HintPath>
+    </Reference>
     <Reference Include="Raven.Abstractions">
       <HintPath>..\packages\RavenDB.Client.2.5.2750\lib\net45\Raven.Abstractions.dll</HintPath>
     </Reference>
@@ -112,6 +115,9 @@
     </Reference>
     <Reference Include="RavenDB.AspNet.Identity">
       <HintPath>..\packages\RavenDB.AspNet.Identity.0.9.0\lib\net45\RavenDB.AspNet.Identity.dll</HintPath>
+    </Reference>
+    <Reference Include="Recaptcha">
+      <HintPath>..\packages\recaptcha.1.0.5.0\lib\.NetFramework 4.0\Recaptcha.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
@@ -251,9 +257,16 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="fonts\_TOP_SECRET_.otf" />
     <Content Include="fonts\defused.ttf" />
+    <Content Include="Scripts\ga.min.js.map">
+      <DependentUpon>ga.min.js</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-2.1.0.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\ga.js" />
+    <Content Include="Scripts\ga.min.js">
+      <DependentUpon>ga.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\jquery-2.1.0.js" />
     <Content Include="Scripts\jquery-2.1.0.min.js" />
     <Content Include="Scripts\jquery-2.1.0.min.map" />

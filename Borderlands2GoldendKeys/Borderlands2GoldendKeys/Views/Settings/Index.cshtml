@@ -49,17 +49,6 @@
                     </div>
                 </div>
 
-                <h4>Analytic</h4>
-                <hr />
-                @Html.ValidationSummary(true)
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Settings.Analytics.Key, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.Settings.Analytics.Key, new { @class = "form-control", placeholder = "Google analytics key" })
-                        @Html.ValidationMessageFor(m => m.Settings.Analytics.Key)
-                    </div>
-                </div>
-
                 <h4>Mail</h4>
                 <hr />
                 @Html.ValidationSummary(true)

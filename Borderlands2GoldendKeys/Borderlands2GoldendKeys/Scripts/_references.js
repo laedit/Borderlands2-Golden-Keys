@@ -7,3 +7,4 @@
 /// <reference path="jquery.validate.unobtrusive.js" />
 /// <reference path="jquery.unobtrusive-ajax.js" />
 /// <reference path="site.js" />
+/// <reference path="ga.js" />

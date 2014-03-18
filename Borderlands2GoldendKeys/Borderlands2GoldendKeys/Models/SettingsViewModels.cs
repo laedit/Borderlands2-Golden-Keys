@@ -24,14 +24,11 @@ namespace Borderlands2GoldendKeys.Models
 
         public ReCaptchaSettings ReCaptcha { get; set; }
 
-        public GoogleAnalytics Analytics { get; set; }
-
         public void UpdateFrom(Settings settings)
         {
             Twitter = settings.Twitter;
             Mail = settings.Mail;
             ReCaptcha = settings.ReCaptcha;
-            Analytics = settings.Analytics;
         }
     }
 
@@ -80,10 +77,5 @@ namespace Borderlands2GoldendKeys.Models
 
         [Display(Name = "Private key")]
         public string PrivateKey { get; set; }
-    }
-
-    public class GoogleAnalytics
-    {
-        public string Key { get; set; }
     }
 }

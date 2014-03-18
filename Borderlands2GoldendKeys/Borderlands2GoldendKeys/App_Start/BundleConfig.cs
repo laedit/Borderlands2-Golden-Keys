@@ -29,6 +29,9 @@ namespace Borderlands2GoldendKeys
             bundles.Add(new ScriptBundle("~/bundles/site").Include(
                       "~/Scripts/site.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/ga").Include(
+                      "~/Scripts/ga.js"));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       //"~/Content/bootstrap.css",
                       "~/Content/bootswatch.slate.min.css",

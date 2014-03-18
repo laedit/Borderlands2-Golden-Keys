@@ -57,6 +57,7 @@ namespace Borderlands2GoldendKeys.Controllers
             }
         }
 
+        // TODO integrate PoliteCaptcha
         [HttpPost]
         public JsonResult SendMail(Mail mail)
         {
