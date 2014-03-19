@@ -33,9 +33,11 @@ namespace Borderlands2GoldendKeys
                       "~/Scripts/ga.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      //"~/Content/bootstrap.css",
                       "~/Content/bootswatch.slate.min.css",
                       "~/Content/site.css"));
+#if !DEBUG
+            BundleTable.EnableOptimizations = true;
+#endif
         }
     }
 }
