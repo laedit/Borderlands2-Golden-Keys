@@ -1,5 +1,6 @@
 ﻿using Borderlands2GoldendKeys.Helpers;
 using Borderlands2GoldendKeys.Models;
+using PoliteCaptcha;
 using Raven.Abstractions.Data;
 using Raven.Client;
 using System;
@@ -30,14 +31,27 @@ namespace Borderlands2GoldendKeys.Controllers
         // GET: /Settings/
         public ActionResult Index()
         {
+
+            return View(GetSettingsViewModel());
+        }
+
+        private SettingsViewModel GetSettingsViewModel(Settings settings = null)
+        {
             var anyDocs = _documentSession.Query<ShiftCode>().Any();
             var viewModel = new SettingsViewModel();
-            viewModel.Settings = _documentSession.Load<Settings>(Settings.UniqueId);
+            if (settings == null)
+            {
+                viewModel.Settings = _documentSession.Load<Settings>(Settings.UniqueId);
+            }
+            else
+            {
+                viewModel.Settings = settings;
+            }
             viewModel.DisableFillDatabaseButton = viewModel.Settings == null || viewModel.Settings.Twitter == null || !viewModel.Settings.Twitter.IsComplete || anyDocs;
             viewModel.DisableLaunchUpdateProcessButton = !viewModel.DisableFillDatabaseButton || _updateProcess.IsRunning || viewModel.Settings == null || viewModel.Settings.Twitter == null || !viewModel.Settings.Twitter.IsComplete;
             viewModel.DisableDeleteAllButton = !anyDocs;
             viewModel.UpdateRunning = _updateProcess.IsRunning;
-            return View(viewModel);
+            return viewModel;
         }
 
         //
@@ -45,9 +59,12 @@ namespace Borderlands2GoldendKeys.Controllers
         [HttpPost]
         public ActionResult Index(Settings settings)
         {
-            _documentSession.Store(settings);
-            _documentSession.SaveChanges();
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                _documentSession.Store(settings);
+                _documentSession.SaveChanges();
+            }
+            return View(GetSettingsViewModel(settings));
         }
 
         //

@@ -99,10 +99,27 @@ function SendMailSuccess(data) {
 
         $('#mailResult').html("<div class='alert alert-success'>");
         $('#mailResult > .alert-success').html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;").append("</button>");
-        $('#mailResult > .alert-success').append("<strong>Your message has been sent. </strong>");
+        $('#mailResult > .alert-success').append("<strong><span class=\"glyphicon glyphicon-send\"></span> &nbsp; Your message has been sent. </strong>");
         $('#mailResult > .alert-success').append('</div>');
     } else {
-        SendMailFailure();
+        if (data.Message == null) {
+            SendMailFailure();
+        } else {
+            if (data.Message == "ReCaptcha") {
+
+                $('#youAreAClaptrap').html("It appear that you might be a ClapTrap. If not, thanks to complete this little test.");
+                Recaptcha.create("6LcAG_ASAAAAANM52qRMQ8XX_9yz7cxbx0rIRfMB",
+                                    "ReCaptcha",
+                                    {
+                                        theme: "blackglass",
+                                        callback: Recaptcha.focus_response_field
+                                    }
+                                  );
+            } else {
+                $('#mailResult').html(data.Message);
+            }
+            $('#sendMailButton').prop("disabled", false);
+        }
     }
 }
 

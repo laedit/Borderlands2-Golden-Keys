@@ -217,6 +217,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\EnumExtensions.cs" />
+    <Compile Include="Helpers\RavenReCaptchaConfigurationSource.cs" />
     <Compile Include="Helpers\ShiftCodeRecuperator.cs" />
     <Compile Include="Helpers\ShiftCodesIndex.cs" />
     <Compile Include="Helpers\ShiftCodeUpdateProcess.cs" />

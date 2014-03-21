@@ -18,6 +18,7 @@
     <Node Id="Microsoft.Data.Edm 5.6.0" Label="Microsoft.Data.Edm 5.6.0" Category="Package" />
     <Node Id="Microsoft.Data.OData 5.6.0" Label="Microsoft.Data.OData 5.6.0" Category="Package" />
     <Node Id="Microsoft.Data.Services.Client 5.6.0" Label="Microsoft.Data.Services.Client 5.6.0" Category="Package" />
+    <Node Id="Microsoft.jQuery.Unobtrusive.Ajax 3.1.1" Label="Microsoft.jQuery.Unobtrusive.Ajax 3.1.1" Category="Package" />
     <Node Id="Microsoft.jQuery.Unobtrusive.Validation 3.1.1" Label="Microsoft.jQuery.Unobtrusive.Validation 3.1.1" Category="Package" />
     <Node Id="Microsoft.Net.Http 2.2.18" Label="Microsoft.Net.Http 2.2.18" Category="Package" />
     <Node Id="Microsoft.Owin 2.1.0" Label="Microsoft.Owin 2.1.0" Category="Package" />
@@ -30,10 +31,12 @@
     <Node Id="Modernizr 2.7.1" Label="Modernizr 2.7.1" Category="Package" />
     <Node Id="Newtonsoft.Json 6.0.1" Label="Newtonsoft.Json 6.0.1" Category="Package" />
     <Node Id="Owin 1.0" Label="Owin 1.0" Category="Package" />
+    <Node Id="PoliteCaptcha 0.4.0.1" Label="PoliteCaptcha 0.4.0.1" Category="Package" />
     <Node Id="RavenDB.AspNet.Identity 0.9.0" Label="RavenDB.AspNet.Identity 0.9.0" Category="Package" />
     <Node Id="RavenDB.Client 2.5.2750" Label="RavenDB.Client 2.5.2750" Category="Package" />
     <Node Id="RavenDB.Database 2.5.2750" Label="RavenDB.Database 2.5.2750" Category="Package" />
     <Node Id="RavenDB.Embedded 2.5.2750" Label="RavenDB.Embedded 2.5.2750" Category="Package" />
+    <Node Id="recaptcha 1.0.5.0" Label="recaptcha 1.0.5.0" Category="Package" />
     <Node Id="Respond 1.3.0" Label="Respond 1.3.0" Category="Package" />
     <Node Id="System.Spatial 5.6.0" Label="System.Spatial 5.6.0" Category="Package" />
     <Node Id="Unity 3.0.1304.1" Label="Unity 3.0.1304.1" Category="Package" />
@@ -59,6 +62,7 @@
     <Link Source="Microsoft.Data.OData 5.6.0" Target="System.Spatial 5.6.0" Category="Package Dependency" />
     <Link Source="Microsoft.Data.OData 5.6.0" Target="Microsoft.Data.Edm 5.6.0" Category="Package Dependency" />
     <Link Source="Microsoft.Data.Services.Client 5.6.0" Target="Microsoft.Data.OData 5.6.0" Category="Package Dependency" />
+    <Link Source="Microsoft.jQuery.Unobtrusive.Ajax 3.1.1" Target="jQuery 2.1.0" Category="Package Dependency" />
     <Link Source="Microsoft.jQuery.Unobtrusive.Validation 3.1.1" Target="jQuery 2.1.0" Category="Package Dependency" />
     <Link Source="Microsoft.jQuery.Unobtrusive.Validation 3.1.1" Target="jQuery.Validation 1.11.1" Category="Package Dependency" />
     <Link Source="Microsoft.Net.Http 2.2.18" Target="Microsoft.Bcl 1.1.3" Category="Package Dependency" />
@@ -78,6 +82,8 @@
     <Link Source="Microsoft.Owin.Security.OAuth 2.1.0" Target="Microsoft.Owin 2.1.0" Category="Package Dependency" />
     <Link Source="Microsoft.Owin.Security.OAuth 2.1.0" Target="Newtonsoft.Json 6.0.1" Category="Package Dependency" />
     <Link Source="Microsoft.Owin.Security.OAuth 2.1.0" Target="Microsoft.Owin.Security 2.1.0" Category="Package Dependency" />
+    <Link Source="PoliteCaptcha 0.4.0.1" Target="jQuery 2.1.0" Category="Package Dependency" />
+    <Link Source="PoliteCaptcha 0.4.0.1" Target="recaptcha 1.0.5.0" Category="Package Dependency" />
     <Link Source="RavenDB.AspNet.Identity 0.9.0" Target="Microsoft.AspNet.Identity.Core 1.0.0" Category="Package Dependency" />
     <Link Source="RavenDB.AspNet.Identity 0.9.0" Target="RavenDB.Client 2.5.2750" Category="Package Dependency" />
     <Link Source="RavenDB.Database 2.5.2750" Target="System.Spatial 5.6.0" Category="Package Dependency" />
@@ -104,9 +110,11 @@
     <Link Source="Borderlands2GoldendKeys" Target="LinqToTwitter 3.0.2" Category="Installed Package" />
     <Link Source="Borderlands2GoldendKeys" Target="Microsoft.AspNet.Identity.Owin 1.0.0" Category="Installed Package" />
     <Link Source="Borderlands2GoldendKeys" Target="Microsoft.AspNet.Web.Optimization 1.1.2" Category="Installed Package" />
+    <Link Source="Borderlands2GoldendKeys" Target="Microsoft.jQuery.Unobtrusive.Ajax 3.1.1" Category="Installed Package" />
     <Link Source="Borderlands2GoldendKeys" Target="Microsoft.jQuery.Unobtrusive.Validation 3.1.1" Category="Installed Package" />
     <Link Source="Borderlands2GoldendKeys" Target="Microsoft.Owin.Host.SystemWeb 2.1.0" Category="Installed Package" />
     <Link Source="Borderlands2GoldendKeys" Target="Modernizr 2.7.1" Category="Installed Package" />
+    <Link Source="Borderlands2GoldendKeys" Target="PoliteCaptcha 0.4.0.1" Category="Installed Package" />
     <Link Source="Borderlands2GoldendKeys" Target="RavenDB.AspNet.Identity 0.9.0" Category="Installed Package" />
     <Link Source="Borderlands2GoldendKeys" Target="RavenDB.Embedded 2.5.2750" Category="Installed Package" />
     <Link Source="Borderlands2GoldendKeys" Target="Respond 1.3.0" Category="Installed Package" />
