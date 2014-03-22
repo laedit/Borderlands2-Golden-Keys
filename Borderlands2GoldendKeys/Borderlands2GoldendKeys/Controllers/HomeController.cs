@@ -1,9 +1,11 @@
 ﻿using Borderlands2GoldendKeys.Models;
+using PoliteCaptcha;
 using Raven.Client;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Web.Mvc;
+using System.Web.Mvc.Html;
 
 namespace Borderlands2GoldendKeys.Controllers
 {
@@ -57,12 +59,11 @@ namespace Borderlands2GoldendKeys.Controllers
             }
         }
 
-        // TODO integrate PoliteCaptcha
-        [HttpPost]
+        [HttpPost, ValidateSpamPrevention]
         public JsonResult SendMail(Mail mail)
         {
             ResultMessage resultMessage = new ResultMessage { Success = false };
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 // Verification of the mail address
                 MailAddress mailAddress = new MailAddress(mail.MailFrom);
@@ -83,6 +84,13 @@ namespace Borderlands2GoldendKeys.Controllers
                         body: string.Format("From: {0}.\r\n\r\n{1}", mailAddress.Address, mail.Message));
                 }
                 resultMessage.Success = true;
+            }
+            else
+            {
+                if (ModelState.ContainsKey("PoliteCaptcha"))
+                {
+                    resultMessage.Message = "ReCaptcha";
+                }
             }
 
             return Json(resultMessage);

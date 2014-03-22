@@ -1,5 +1,7 @@
 ﻿@model  Borderlands2GoldendKeys.Models.HomeViewModel
 
+@using PoliteCaptcha
+
 <div class="well">
     <h1 class="defused">Borderlands 2: Golden Keys <small class="secret red">[unofficial]</small></h1>
     <div>
@@ -46,14 +48,14 @@
         <div class="row text-center">
             <div class="col-md-2 col-md-offset-5">
                 @using (Ajax.BeginForm("GetRemainingShiftCodes", new AjaxOptions
-        {
-            InsertionMode = InsertionMode.InsertAfter,
-            LoadingElementId = "ajaxLoader",
-            UpdateTargetId = "shiftCodes",
-            OnBegin = "ShowAllBegin",
-            OnFailure = "ShowAllFailure",
-            OnSuccess = "ShowAllSuccess"
-        }))
+                {
+                    InsertionMode = InsertionMode.InsertAfter,
+                    LoadingElementId = "ajaxLoader",
+                    UpdateTargetId = "shiftCodes",
+                    OnBegin = "ShowAllBegin",
+                    OnFailure = "ShowAllFailure",
+                    OnSuccess = "ShowAllSuccess"
+                }))
                 {
                     <input id="showAllButton" type="submit" value="Show all" class="btn btn-default btn-sm" />
                 }
@@ -91,14 +93,16 @@ else
                 </div>
                 <div id="collapseIssues" class="panel-collapse collapse">
                     <div class="panel-body">
-                        <div class="row">
+                        <div class="row center-block">
                             <div class="col-md-12">
-                                You could go in the <a href="https://github.com/laedit/Borderlands2-Golden-Keys/issues" title="Borderlands 2: Golden Keys GitHub issues">GitHub issues</a>.
+                                You could go to the <a href="https://github.com/laedit/Borderlands2-Golden-Keys/issues" title="Borderlands 2: Golden Keys GitHub issues">GitHub issues</a>.
+                                <br />
+                                <br />
                             </div>
                         </div>
                         @if (Model.EnableMail)
                         {
-                            <div class="row">
+                            <div class="row center-block">
                                 @using (Ajax.BeginForm("SendMail", null, new AjaxOptions
                                 {
                                     LoadingElementId = "mailLoader",
@@ -125,8 +129,15 @@ else
                                             </div>
                                         </div>
                                         <div class="form-group">
+                                            <div>
+                                                <span class="text-danger" id="youAreAClaptrap"></span>
+                                                <div id="ReCaptcha">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
                                             <div class="col-md-12">
-                                                <input type="submit" id="sendMailButton" value="Send mail" class="btn btn-default pull-right" />
+                                                <button type="submit" id="sendMailButton" class=" btn btn-default"><span class="glyphicon glyphicon-send"></span> &nbsp;  Send mail</button>
                                             </div>
                                         </div>
                                     </div>
@@ -168,6 +179,8 @@ else
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/jqueryunobt")
     @Scripts.Render("~/bundles/site")
+    @Html.SpamPreventionScript()
+    <script type="text/javascript" src="http://www.google.com/recaptcha/api/js/recaptcha_ajax.js"></script>
     <script type="text/javascript">
         DocumentReadyInitializeTooltip();
     </script>
