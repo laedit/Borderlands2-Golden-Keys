@@ -109,7 +109,7 @@ else
                                     OnBegin = "SendMailBegin",
                                     OnFailure = "SendMailFailure",
                                     OnSuccess = "SendMailSuccess"
-                                }, new { @class = "form-horizontal col-md-12" }))
+                                }, new { @class = "form-horizontal col-md-12", id = "contactForm" }))
                                 {
                                     <div id="mailForm">
                                         Or you could just send a mail :
@@ -130,6 +130,7 @@ else
                                         </div>
                                         <div class="form-group">
                                             <div>
+                                                @Html.SpamPreventionFields()
                                                 <span class="text-danger" id="youAreAClaptrap"></span>
                                                 <div id="ReCaptcha">
                                                 </div>

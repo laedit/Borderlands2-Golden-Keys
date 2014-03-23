@@ -5,5 +5,6 @@ namespace Borderlands2GoldendKeys.Models
     {
         public bool Success { get; set; }
         public string Message { get; set; }
+        public string ErrorSource { get; set; }
     }
 }

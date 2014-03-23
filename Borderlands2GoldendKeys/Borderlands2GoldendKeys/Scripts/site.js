@@ -102,10 +102,10 @@ function SendMailSuccess(data) {
         $('#mailResult > .alert-success').append("<strong><span class=\"glyphicon glyphicon-send\"></span> &nbsp; Your message has been sent. </strong>");
         $('#mailResult > .alert-success').append('</div>');
     } else {
-        if (data.Message == null) {
+        if (data.ErrorSource == null) {
             SendMailFailure();
         } else {
-            if (data.Message == "ReCaptcha") {
+            if (data.ErrorSource == "PoliteCaptcha") {
 
                 $('#youAreAClaptrap').html("It appear that you might be a ClapTrap. If not, thanks to complete this little test.");
                 Recaptcha.create("6LcAG_ASAAAAANM52qRMQ8XX_9yz7cxbx0rIRfMB",

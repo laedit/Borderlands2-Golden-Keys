@@ -89,7 +89,7 @@ namespace Borderlands2GoldendKeys.Controllers
             {
                 if (ModelState.ContainsKey("PoliteCaptcha"))
                 {
-                    resultMessage.Message = "ReCaptcha";
+                    resultMessage.ErrorSource = "PoliteCaptcha";
                 }
             }
 
