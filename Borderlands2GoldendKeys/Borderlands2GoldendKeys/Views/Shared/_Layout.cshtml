@@ -15,6 +15,7 @@
     @Scripts.Render("~/bundles/ga")
 
     <meta name="description" content="Borderlands 2: Golden keys provides SHift Codes from GearboxSoftware's twiter" />
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="@Url.Action("Rss", "Home", null, "http")" />
 </head>
 <body>
     <script type="text/javascript">
@@ -62,6 +63,7 @@
                 &nbsp;-&nbsp;  <a href="http://bootswatch.com/"><img src="~/Content/images/bootswatch.png" title="Bootswatch" alt="Bootswatch" /></a>
                 &nbsp;-&nbsp;  <a href="http://dafont.com/"><img src="~/Content/images/dafont.png" title="DaFont" alt="DaFont" /></a>
                 &nbsp;-&nbsp;  <a href="http://glyphicons.com/"><img src="~/Content/images/glyphicons.png" title="Glyphicons" alt="Glyphicons" /></a>
+                <a class="pull-right" href="@Url.Action("Rss", "Home")" title="RSS"><img src="~/Content/images/rss.png" title="RSS" alt="RSS" /></a>
             </p>
         </footer>
         <hr />

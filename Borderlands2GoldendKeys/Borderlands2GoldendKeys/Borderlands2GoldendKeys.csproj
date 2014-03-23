@@ -130,6 +130,7 @@
     <Reference Include="System.Net.Http.Primitives">
       <HintPath>..\packages\Microsoft.Net.Http.2.2.18\lib\net45\System.Net.Http.Primitives.dll</HintPath>
     </Reference>
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Spatial, Version=5.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Spatial.5.6.0\lib\net40\System.Spatial.dll</HintPath>
     </Reference>
@@ -217,6 +218,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\EnumExtensions.cs" />
+    <Compile Include="Helpers\FeedResult.cs" />
     <Compile Include="Helpers\RavenReCaptchaConfigurationSource.cs" />
     <Compile Include="Helpers\ShiftCodeRecuperator.cs" />
     <Compile Include="Helpers\ShiftCodesIndex.cs" />
@@ -247,6 +249,7 @@
     <Content Include="Content\images\ikoula.png" />
     <Content Include="Content\images\linq2twitter.png" />
     <Content Include="Content\images\ravendb.png" />
+    <Content Include="Content\images\rss.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

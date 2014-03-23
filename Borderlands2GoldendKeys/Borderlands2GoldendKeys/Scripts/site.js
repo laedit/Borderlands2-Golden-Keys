@@ -102,7 +102,7 @@ function SendMailSuccess(data) {
         $('#mailResult > .alert-success').append("<strong><span class=\"glyphicon glyphicon-send\"></span> &nbsp; Your message has been sent. </strong>");
         $('#mailResult > .alert-success').append('</div>');
     } else {
-        if (data.ErrorSource == null) {
+        if (data.ErrorSource === null) {
             SendMailFailure();
         } else {
             if (data.ErrorSource == "PoliteCaptcha") {

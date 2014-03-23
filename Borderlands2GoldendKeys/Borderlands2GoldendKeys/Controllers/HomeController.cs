@@ -1,9 +1,13 @@
-﻿using Borderlands2GoldendKeys.Models;
+﻿using Borderlands2GoldendKeys.Helpers;
+using Borderlands2GoldendKeys.Models;
 using PoliteCaptcha;
 using Raven.Client;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
+using System.ServiceModel.Syndication;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 
@@ -94,6 +98,52 @@ namespace Borderlands2GoldendKeys.Controllers
             }
 
             return Json(resultMessage);
+        }
+
+        const string RssItemContentTemplate = @"SHiFT Code: {0}<br />Expiration date: {1}<br /><a href=""http://twitter.com/GearboxSoftware/status/{2}"">Source</a>";
+
+        [HttpGet]
+        public ActionResult Rss()
+        {
+            var shiftCodesQuery = _documentSession.Query<ShiftCode>().OrderByDescending(s => s.CreationDate);
+
+            DateTime modifiedSince;
+            if (DateTime.TryParse(Request.Headers["If-Modified-Since"], out modifiedSince))
+            {
+                modifiedSince = modifiedSince.AddMinutes(-5); // Just in case
+                shiftCodesQuery = (IOrderedQueryable<ShiftCode>)shiftCodesQuery.Where(s => s.CreationDate >= modifiedSince);
+            }
+
+            var shiftCodes = shiftCodesQuery.Take(10).ToList();
+
+            if (shiftCodes.Count == 0)
+            {
+                return new HttpStatusCodeResult(304, "Not Modified");
+            }
+
+            Response.AddHeader("Last-Modified", shiftCodes[0].CreationDate.ToUniversalTime().ToString("R"));
+
+            List<SyndicationItem> rssItems = new List<SyndicationItem>();
+            SyndicationFeed feed =
+                new SyndicationFeed("Borderlands 2: Golden Keys",
+                                    "List af all ShiftCodes getting golden keys provided by Gearbox on Twitter",
+                                    new Uri(Request.Url.ToString()),
+                                    Url.Action("Rss", "Home", null, "http"),
+                                    DateTime.Now);
+
+            foreach (var shiftCode in shiftCodes)
+            {
+                var rssItem = new SyndicationItem(shiftCode.Platform.DisplayName(),
+                    string.Format(RssItemContentTemplate, shiftCode.Code, shiftCode.ExpirationDate.Value.ToString("d MMM yyyy", new System.Globalization.CultureInfo("en-us")), shiftCode.SourceStatusId),
+                    new Uri(Url.Action("Index", "Home", null, "http")),
+                    shiftCode.Code,
+                    shiftCode.CreationDate);
+                rssItems.Add(rssItem);
+            }
+
+            feed.Items = rssItems;
+
+            return new RssResult(feed);
         }
     }
 }
