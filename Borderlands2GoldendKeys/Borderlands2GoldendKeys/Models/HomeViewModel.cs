@@ -7,15 +7,27 @@ namespace Borderlands2GoldendKeys.Models
     {
         public ClapTrapQuote ClapTrapQuote { get; set; }
 
-        public List<ShiftCode> ShiftCodes { get; set; }
-
         public bool DisableShallAllButton { get; set; }
 
         public bool EnableMail { get; set; }
 
         public Mail Mail { get; set; }
 
+        public RowsViewModel Rows { get; set; }
+
         public HomeViewModel()
+        {
+            Rows = new RowsViewModel();
+        }
+    }
+
+    public class RowsViewModel
+    {
+        public bool HasShiftCodes { get { return ShiftCodes.Count > 0; } }
+        public List<ShiftCode> ShiftCodes { get; set; }
+        public int StartIndex { get; set; }
+
+        public RowsViewModel()
         {
             ShiftCodes = new List<ShiftCode>();
         }

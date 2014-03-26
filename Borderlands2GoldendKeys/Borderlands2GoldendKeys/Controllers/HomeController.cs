@@ -9,12 +9,13 @@ using System.Net;
 using System.Net.Mail;
 using System.ServiceModel.Syndication;
 using System.Web.Mvc;
-using System.Web.Mvc.Html;
 
 namespace Borderlands2GoldendKeys.Controllers
 {
     public class HomeController : Controller
     {
+        private const int NumberToShow = 5;
+
         /// <summary>
         /// RavenDB document session
         /// </summary>
@@ -32,15 +33,16 @@ namespace Borderlands2GoldendKeys.Controllers
 
             homeViewModel.ClapTrapQuote = _documentSession.Query<ClapTrapQuote>().Customize(q => q.RandomOrdering()).First();
             homeViewModel.EnableMail = _documentSession.Load<Settings>(Settings.UniqueId).Mail.IsComplete;
+            homeViewModel.Rows.StartIndex = 1;
 
             if (string.Equals("showall", id, System.StringComparison.OrdinalIgnoreCase))
             {
-                homeViewModel.ShiftCodes = GetShiftCodesBaseQuery().ToList();
+                homeViewModel.Rows.ShiftCodes = GetShiftCodesBaseQuery().ToList();
                 homeViewModel.DisableShallAllButton = true;
             }
             else
             {
-                homeViewModel.ShiftCodes = GetShiftCodesBaseQuery().Take(5).ToList();
+                homeViewModel.Rows.ShiftCodes = GetShiftCodesBaseQuery().Take(NumberToShow).ToList();
             }
 
             return View(homeViewModel);
@@ -55,7 +57,10 @@ namespace Borderlands2GoldendKeys.Controllers
         {
             if (Request.IsAjaxRequest())
             {
-                return PartialView("_ShiftCodeRowPartial", GetShiftCodesBaseQuery().Skip(5).ToList());
+                var rows = new RowsViewModel();
+                rows.ShiftCodes = GetShiftCodesBaseQuery().Skip(NumberToShow).ToList();
+                rows.StartIndex = NumberToShow + 1;
+                return PartialView("_ShiftCodeRowPartial", rows);
             }
             else
             {

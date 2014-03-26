@@ -69,3 +69,8 @@ input[type="checkbox"].input-validation-error {
 .table th, td {
     text-align: center;
 }
+
+.z-clip-wrap {
+    position: relative;
+    display: inline-block;
+}

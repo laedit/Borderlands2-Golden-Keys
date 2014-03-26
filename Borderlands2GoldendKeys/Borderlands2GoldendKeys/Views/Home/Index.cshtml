@@ -19,21 +19,21 @@
         </blockquote>
     </div>
 </div>
-@if (Model.ShiftCodes.Count > 0)
+@if (Model.Rows.HasShiftCodes)
 {
     <div class="row">
         <div class="col-md-12">
             <table class="table table-striped table-hover">
                 <thead>
                     <tr>
-                        <th><h4>Platform</h4></th>
-                        <th><h4>SHiFT Code</h4></th>
-                        <th><h4>Valid</h4></th>
-                        <th><h4>Source</h4></th>
+                        <th class="col-md-1"><h4>Platform</h4></th>
+                        <th class="col-md-2"><h4>SHiFT Code</h4></th>
+                        <th class="col-md-1"><h4>Valid</h4></th>
+                        <th class="col-md-1"><h4>Source</h4></th>
                     </tr>
                 </thead>
                 <tbody id="shiftCodes">
-                    @Html.Partial("_ShiftCodeRowPartial", Model.ShiftCodes)
+                    @Html.Partial("_ShiftCodeRowPartial", Model.Rows)
                 </tbody>
             </table>
         </div>
@@ -177,12 +177,11 @@ else
 
 @section scripts
 {
-    @Scripts.Render("~/bundles/jqueryval")
-    @Scripts.Render("~/bundles/jqueryunobt")
-    @Scripts.Render("~/bundles/site")
+    <script type="text/javascript" src="~/Scripts/jquery.zclip.min.js"></script>
     @Html.SpamPreventionScript()
     <script type="text/javascript" src="http://www.google.com/recaptcha/api/js/recaptcha_ajax.js"></script>
     <script type="text/javascript">
         DocumentReadyInitializeTooltip();
+        DocumentReadyInitializezClip();
     </script>
 }

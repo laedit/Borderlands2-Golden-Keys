@@ -8,3 +8,4 @@
 /// <reference path="jquery.unobtrusive-ajax.js" />
 /// <reference path="site.js" />
 /// <reference path="ga.js" />
+/// <reference path="jquery.zclip.js" />

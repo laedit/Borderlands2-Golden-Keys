@@ -1,7 +1,5 @@
 ﻿function DocumentReadyInitializeTooltip() {
-    $(document).ready(function () {
-        InitializeTooltip();
-    });
+    $(document).ready(InitializeTooltip());
 }
 
 function InitializeTooltip() {
@@ -10,6 +8,7 @@ function InitializeTooltip() {
 
 function ShowAllSuccess() {
     InitializeTooltip();
+    InitializezClip();
 }
 function ShowAllFailure() {
     $('#showAllButton').val("Retry");
@@ -135,4 +134,25 @@ function SendMailFailure() {
 function SendMailBegin() {
     $('#sendMailButton').prop("disabled", true);
 }
+
+function DocumentReadyInitializezClip() {
+    $(document).ready(InitializezClip());
+}
+
+function InitializezClip()
+{
+    $('.codeCopy').zclip({
+        path: 'Scripts/ZeroClipboard.swf',
+        copy: function () {
+            return $($(this).data('copy')).text();
+        },
+        afterCopy: function () {
+            $('.imgCopy').each(function () {
+                $(this).attr("src", "/Content/images/clipboard.png");
+            });
+            $($(this).data('img')).attr("src", "/Content/images/clipboard-ok.png");
+        }
+    });
+}
+
 !function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https'; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = p + '://platform.twitter.com/widgets.js'; fjs.parentNode.insertBefore(js, fjs); } }(document, 'script', 'twitter-wjs');

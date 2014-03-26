@@ -1,11 +1,15 @@
-﻿@model List<Borderlands2GoldendKeys.Models.ShiftCode>
+﻿@model  Borderlands2GoldendKeys.Models.RowsViewModel
 
-@foreach (var shiftCode in Model)
-{
-    <tr>
-        <td>@Html.DisplayFor(m => shiftCode.Platform)</td>
-        <td>@Html.DisplayFor(m => shiftCode.Code)</td>
-        <td>@Html.DisplayFor(m => shiftCode.ExpirationDate)</td>
-        <td><a class="btn btn-sm" href="@string.Format("http://twitter.com/GearboxSoftware/status/{0}", shiftCode.SourceStatusId)">Learn more &raquo;</a></td>
-    </tr>
+@{
+    int i = Model.StartIndex;
+    foreach (var shiftCode in Model.ShiftCodes)
+    {
+        <tr>
+            <td>@Html.DisplayFor(m => shiftCode.Platform)</td>
+            <td><span id="code@(i)">@Html.DisplayFor(m => shiftCode.Code)</span><span class="z-clip-wrap pull-right"><a href="#" id="btn@(i)" data-copy="#code@(i)" data-img="#img@(i)" class="btn btn-primary btn-sm codeCopy"><img id="img@(i)" class="imgCopy" src="~/Content/images/clipboard.png" alt="Copy to clipboard" title="Copy to clipboard" /></a></span></td>
+            <td>@Html.DisplayFor(m => shiftCode.ExpirationDate)</td>
+            <td><a class="btn btn-sm" href="@string.Format("http://twitter.com/GearboxSoftware/status/{0}", shiftCode.SourceStatusId)">Learn more &raquo;</a></td>
+        </tr>
+        i++;
+    }
 }
