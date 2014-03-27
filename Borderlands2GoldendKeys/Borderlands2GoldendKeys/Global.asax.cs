@@ -1,26 +1,23 @@
 ﻿using Borderlands2GoldendKeys.Helpers;
 using Borderlands2GoldendKeys.Models;
-using Microsoft.Practices.Unity;
 using Raven.Client;
 using System;
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using System.Linq;
 
 namespace Borderlands2GoldendKeys
 {
     public class MvcApplication : System.Web.HttpApplication
     {
-        private static IUnityContainer _unityContainer;
-
         public static string BaseUrl { get; private set; }
 
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
-            _unityContainer = UnityConfig.RegisterComponents();
+            UnityConfig.RegisterComponents();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
@@ -30,7 +27,8 @@ namespace Borderlands2GoldendKeys
 
         private void Application_Initialization()
         {
-            var documentStore = _unityContainer.Resolve<IDocumentStore>();
+
+            var documentStore = DependencyResolver.Current.GetService<IDocumentStore>();
 
             using (IDocumentSession documentSession = documentStore.OpenSession())
             {
@@ -41,7 +39,7 @@ namespace Borderlands2GoldendKeys
                     documentSession.SaveChanges();
                 }
 
-                var updateProcess = _unityContainer.Resolve<ShiftCodeUpdateProcess>();
+                var updateProcess = DependencyResolver.Current.GetService<ShiftCodeUpdateProcess>();
                 var settings = documentSession.Load<Settings>(Settings.UniqueId);
                 if (!updateProcess.IsRunning && settings != null && settings.Twitter != null && settings.Twitter.IsComplete)
                 {
@@ -72,7 +70,7 @@ namespace Borderlands2GoldendKeys
 
             if (HttpContext.Current.Request.RawUrl.EndsWith("/Settings/RestardUpdateProcess"))
             {
-                var updateProcess = _unityContainer.Resolve<ShiftCodeUpdateProcess>();
+                var updateProcess = DependencyResolver.Current.GetService<ShiftCodeUpdateProcess>();
                 if (!updateProcess.IsRunning)
                 {
                     updateProcess.Start();
