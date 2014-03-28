@@ -105,7 +105,8 @@ namespace Borderlands2GoldendKeys.Controllers
             }
             catch (Exception ex)
             {
-                // TODO store in ELMAH
+                Elmah.ErrorSignal.FromCurrentContext().Raise(ex);
+
                 message = new ResultMessage
                 {
                     Success = false,
@@ -134,17 +135,17 @@ namespace Borderlands2GoldendKeys.Controllers
                 }
                 else
                 {
-                    // TODO store in ELMAH?
                     message = new ResultMessage
                     {
                         Success = false,
-                        Message = "Update process already launched"
+                        Message = "Update process already launched. That is not supposed to be possible."
                     };
                 }
             }
             catch (Exception ex)
             {
-                // TODO store in ELMAH
+                Elmah.ErrorSignal.FromCurrentContext().Raise(ex);
+
                 message = new ResultMessage
                 {
                     Success = false,
@@ -174,7 +175,8 @@ namespace Borderlands2GoldendKeys.Controllers
             }
             catch (Exception ex)
             {
-                // TODO store in ELMAH
+                Elmah.ErrorSignal.FromCurrentContext().Raise(ex);
+
                 message = new ResultMessage
                 {
                     Success = false,
