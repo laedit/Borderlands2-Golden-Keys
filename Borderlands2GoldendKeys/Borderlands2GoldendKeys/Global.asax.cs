@@ -27,10 +27,7 @@ namespace Borderlands2GoldendKeys
 
         private void Application_Initialization()
         {
-
-            var documentStore = DependencyResolver.Current.GetService<IDocumentStore>();
-
-            using (IDocumentSession documentSession = documentStore.OpenSession())
+            using (IDocumentSession documentSession = DependencyResolver.Current.GetService<IDocumentSession>())
             {
                 // Store some ClapTrap's quotes if needed
                 if (!documentSession.Query<ClapTrapQuote>().Any())
