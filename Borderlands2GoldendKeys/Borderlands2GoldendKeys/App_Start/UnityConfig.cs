@@ -14,7 +14,8 @@ namespace Borderlands2GoldendKeys
 			var container = new UnityContainer();
 
             var documentStore = RavenDBConfig.InitializeDocumentStore();
-            
+
+            container.RegisterInstance<IDocumentStore>(documentStore);
             container.RegisterType<IDocumentSession>(new InjectionFactory(c => documentStore.OpenSession()));
 
             container.RegisterType<ShiftCodeUpdateProcess>();

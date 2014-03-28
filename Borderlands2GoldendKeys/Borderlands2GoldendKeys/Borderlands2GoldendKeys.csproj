@@ -45,6 +45,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="Elmah">
+      <HintPath>..\packages\elmah.corelibrary.1.2.1\lib\Elmah.dll</HintPath>
+    </Reference>
+    <Reference Include="Elmah.Mvc">
+      <HintPath>..\packages\Elmah.MVC.2.1.1\lib\net40\Elmah.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="LinqToTwitter.AspNet">
       <HintPath>..\packages\LinqToTwitter.3.0.2\lib\net45\LinqToTwitter.AspNet.dll</HintPath>
     </Reference>
@@ -229,6 +235,7 @@
     </Compile>
     <Compile Include="Helpers\EnumExtensions.cs" />
     <Compile Include="Helpers\FeedResult.cs" />
+    <Compile Include="Helpers\RavenDBErrorMailModule.cs" />
     <Compile Include="Helpers\RavenReCaptchaConfigurationSource.cs" />
     <Compile Include="Helpers\ShiftCodeRecuperator.cs" />
     <Compile Include="Helpers\ShiftCodesIndex.cs" />
