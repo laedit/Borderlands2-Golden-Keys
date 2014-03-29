@@ -18,7 +18,7 @@ namespace Borderlands2GoldendKeys.Controllers
         public async Task<ActionResult> IndexAsync()
         {
             Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-            return View(await GetErrorInfoWithImageAsync());
+            return View("Error", await GetErrorInfoWithImageAsync());
         }
 
         //
