@@ -26,16 +26,25 @@ namespace Borderlands2GoldendKeys.Controllers
             _documentSession = documentSession;
         }
 
-        public ActionResult Index(string id)
+        public ActionResult Index()
         {
-            // Get datas
+            return View(GetViewModel());
+        }
+
+        public ActionResult ShowAll()
+        {
+            return View("Index", GetViewModel(true));
+        }
+
+        private HomeViewModel GetViewModel(bool showAll = false)
+        {
             var homeViewModel = new HomeViewModel();
 
             homeViewModel.ClapTrapQuote = _documentSession.Query<ClapTrapQuote>().Customize(q => q.RandomOrdering()).First();
             homeViewModel.EnableMail = _documentSession.Load<Settings>(Settings.UniqueId).Mail.IsComplete;
             homeViewModel.Rows.StartIndex = 1;
 
-            if (string.Equals("showall", id, System.StringComparison.OrdinalIgnoreCase))
+            if (showAll)
             {
                 homeViewModel.Rows.ShiftCodes = GetShiftCodesBaseQuery().ToList();
                 homeViewModel.DisableShallAllButton = true;
@@ -44,8 +53,7 @@ namespace Borderlands2GoldendKeys.Controllers
             {
                 homeViewModel.Rows.ShiftCodes = GetShiftCodesBaseQuery().Take(NumberToShow).ToList();
             }
-
-            return View(homeViewModel);
+            return homeViewModel;
         }
 
         private IQueryable<ShiftCode> GetShiftCodesBaseQuery()
