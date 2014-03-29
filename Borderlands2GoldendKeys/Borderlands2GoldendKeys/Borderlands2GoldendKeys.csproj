@@ -228,6 +228,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SettingsController.cs" />
     <Compile Include="Global.asax.cs">
@@ -242,6 +243,7 @@
     <Compile Include="Helpers\ShiftCodeUpdateProcess.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ClapTrapQuote.cs" />
+    <Compile Include="Models\ErrorInfo.cs" />
     <Compile Include="Models\ResultMessage.cs" />
     <Compile Include="Models\SettingsViewModels.cs" />
     <Compile Include="Models\ShiftCode.cs" />
@@ -339,6 +341,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Error\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

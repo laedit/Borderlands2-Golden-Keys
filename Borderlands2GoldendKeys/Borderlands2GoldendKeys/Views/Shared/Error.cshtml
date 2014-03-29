@@ -1,9 +1,58 @@
-﻿@model System.Web.Mvc.HandleErrorInfo
+﻿@model HandleErrorInfo
 
 @{
     ViewBag.Title = "Error";
 }
 
-<h1 class="text-danger">Error.</h1>
-<h2 class="text-danger">An error occurred while processing your request.</h2>
+<h1 class="text-danger">3RR0R</h1>
+<div>
+    <strong>AHHHHHHHHHHHHHHHHH! Dang.</strong> My bad.
 
+    <br />
+    <br />
+    @{
+        var errorInfo = Model as Borderlands2GoldendKeys.Models.ErrorInfo;
+
+        if (errorInfo != null)
+        {
+            if (errorInfo.Is404 && !string.IsNullOrEmpty(errorInfo.ErrorPath))
+            {
+                <text>The path "@errorInfo.ErrorPath" does not exists. Or was not built. Or is broken. Your choice.</text>
+                <br />
+            }
+        }
+
+        <text>But I am aware of that.</text>
+        if (errorInfo == null)
+        {
+            <text>And if you want a free ClapTrap, you can go @Html.ActionLink("there", "NotFound", "Error").</text>
+        }
+        else
+        {
+            <text>And you win a free ClapTrap!</text>
+        }
+
+        <br />
+        <br />
+        if (errorInfo != null && !string.IsNullOrEmpty(errorInfo.ImageAuthorLink) && !string.IsNullOrEmpty(errorInfo.ImageAuthorName) && !string.IsNullOrEmpty(errorInfo.ImageLink) && !string.IsNullOrEmpty(errorInfo.ImagePath))
+        {
+            <div class="row">
+                <div class="col-xs-6 col-md-3">
+                    <div class="thumbnail">
+                        <a href="@errorInfo.ImageLink">
+                            <img src="@errorInfo.ImagePath">
+                        </a>
+                        <div class="caption">
+                            <span class="glyphicon glyphicon-copyright-mark"></span> by <a href="@errorInfo.ImageAuthorLink"><strong>@errorInfo.ImageAuthorName</strong></a>
+                            <br />on <a href="http://deviantart.com">deviantART</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+    }
+    <br />
+    <br />
+    And if you want to go elsewhere, try @Html.ActionLink("home", "Index", "Home").
+</div>
