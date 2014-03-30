@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.30110.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Borderlands2GoldendKeys", "Borderlands2GoldendKeys\Borderlands2GoldendKeys.csproj", "{C95F39F2-8D8F-4249-B26F-EAA147A352FB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Borderlands2GoldenKeys", "Borderlands2GoldenKeys\Borderlands2GoldenKeys.csproj", "{C95F39F2-8D8F-4249-B26F-EAA147A352FB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{C8759759-3D9D-4F61-A2EA-87566AA8EE06}"
 	ProjectSection(SolutionItems) = preProject
