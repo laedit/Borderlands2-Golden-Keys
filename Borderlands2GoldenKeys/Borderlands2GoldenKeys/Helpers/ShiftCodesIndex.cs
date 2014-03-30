@@ -1,8 +1,8 @@
-﻿using Borderlands2GoldendKeys.Models;
+﻿using Borderlands2GoldenKeys.Models;
 using Raven.Client.Indexes;
 using System.Linq;
 
-namespace Borderlands2GoldendKeys.Helpers
+namespace Borderlands2GoldenKeys.Helpers
 {
     public class ShiftCodesIndex : AbstractIndexCreationTask<ShiftCode>
     {

@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 
-namespace Borderlands2GoldendKeys
+namespace Borderlands2GoldenKeys
 {
     public class FilterConfig
     {

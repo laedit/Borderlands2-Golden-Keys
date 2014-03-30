@@ -3,7 +3,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Xml;
 
-namespace Borderlands2GoldendKeys.Helpers
+namespace Borderlands2GoldenKeys.Helpers
 {
     public class RssResult : FileResult
     {

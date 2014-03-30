@@ -1,8 +1,8 @@
 ﻿using Microsoft.Owin;
 using Owin;
 
-[assembly: OwinStartupAttribute(typeof(Borderlands2GoldendKeys.Startup))]
-namespace Borderlands2GoldendKeys
+[assembly: OwinStartupAttribute(typeof(Borderlands2GoldenKeys.Startup))]
+namespace Borderlands2GoldenKeys
 {
     public partial class Startup
     {

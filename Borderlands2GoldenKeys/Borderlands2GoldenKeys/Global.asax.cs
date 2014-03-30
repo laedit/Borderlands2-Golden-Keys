@@ -1,5 +1,5 @@
-﻿using Borderlands2GoldendKeys.Helpers;
-using Borderlands2GoldendKeys.Models;
+﻿using Borderlands2GoldenKeys.Helpers;
+using Borderlands2GoldenKeys.Models;
 using Raven.Client;
 using System;
 using System.Linq;
@@ -8,7 +8,7 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 
-namespace Borderlands2GoldendKeys
+namespace Borderlands2GoldenKeys
 {
     public class MvcApplication : System.Web.HttpApplication
     {

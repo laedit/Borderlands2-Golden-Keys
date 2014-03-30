@@ -1,10 +1,10 @@
-﻿using Borderlands2GoldendKeys.Models;
+﻿using Borderlands2GoldenKeys.Models;
 using Elmah;
 using Raven.Client;
 using System.Collections.Generic;
 using System.Web.Mvc;
 
-namespace Borderlands2GoldendKeys.Helpers
+namespace Borderlands2GoldenKeys.Helpers
 {
     public class RavenDBErrorMailModule : ErrorMailModule
     {

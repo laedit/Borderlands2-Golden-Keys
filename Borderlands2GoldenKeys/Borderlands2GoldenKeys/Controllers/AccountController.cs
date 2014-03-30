@@ -1,4 +1,4 @@
-﻿using Borderlands2GoldendKeys.Models;
+﻿using Borderlands2GoldenKeys.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 using Raven.Client;
@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
-namespace Borderlands2GoldendKeys.Controllers
+namespace Borderlands2GoldenKeys.Controllers
 {
     [Authorize]
     public class AccountController : Controller

@@ -1,8 +1,8 @@
-﻿using Borderlands2GoldendKeys.Models;
+﻿using Borderlands2GoldenKeys.Models;
 using PoliteCaptcha;
 using Raven.Client;
 
-namespace Borderlands2GoldendKeys.Helpers
+namespace Borderlands2GoldenKeys.Helpers
 {
     public class RavenReCaptchaConfigurationSource : IConfigurationSource
     {

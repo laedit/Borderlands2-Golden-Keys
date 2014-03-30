@@ -1,11 +1,11 @@
-﻿using Borderlands2GoldendKeys.Helpers;
-using Borderlands2GoldendKeys.Models;
+﻿using Borderlands2GoldenKeys.Helpers;
+using Borderlands2GoldenKeys.Models;
 using Raven.Client;
 using Raven.Client.Embedded;
 using Raven.Client.Indexes;
 using System.Linq;
 
-namespace Borderlands2GoldendKeys
+namespace Borderlands2GoldenKeys
 {
     public static class RavenDBConfig
     {

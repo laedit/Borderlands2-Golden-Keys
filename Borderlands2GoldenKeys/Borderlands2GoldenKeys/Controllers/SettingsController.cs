@@ -1,5 +1,5 @@
-﻿using Borderlands2GoldendKeys.Helpers;
-using Borderlands2GoldendKeys.Models;
+﻿using Borderlands2GoldenKeys.Helpers;
+using Borderlands2GoldenKeys.Models;
 using PoliteCaptcha;
 using Raven.Abstractions.Data;
 using Raven.Client;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
-namespace Borderlands2GoldendKeys.Controllers
+namespace Borderlands2GoldenKeys.Controllers
 {
     [Authorize(Roles = RoleNames.Admin)]
     public class SettingsController : Controller

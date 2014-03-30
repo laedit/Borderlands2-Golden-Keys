@@ -1,5 +1,5 @@
-﻿using Borderlands2GoldendKeys.Helpers;
-using Borderlands2GoldendKeys.Models;
+﻿using Borderlands2GoldenKeys.Helpers;
+using Borderlands2GoldenKeys.Models;
 using PoliteCaptcha;
 using Raven.Client;
 using System;
@@ -10,7 +10,7 @@ using System.Net.Mail;
 using System.ServiceModel.Syndication;
 using System.Web.Mvc;
 
-namespace Borderlands2GoldendKeys.Controllers
+namespace Borderlands2GoldenKeys.Controllers
 {
     public class HomeController : Controller
     {

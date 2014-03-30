@@ -1,4 +1,4 @@
-﻿using Borderlands2GoldendKeys.Models;
+﻿using Borderlands2GoldenKeys.Models;
 using LinqToTwitter;
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace Borderlands2GoldendKeys.Helpers
+namespace Borderlands2GoldenKeys.Helpers
 {
     public class ShiftCodeRecuperator
     {

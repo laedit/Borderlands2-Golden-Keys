@@ -1,4 +1,4 @@
-﻿using Borderlands2GoldendKeys.Models;
+﻿using Borderlands2GoldenKeys.Models;
 using System;
 using System.Linq;
 using System.Net;
@@ -9,7 +9,7 @@ using System.Web.Mvc;
 using System.Xml;
 using System.Xml.Linq;
 
-namespace Borderlands2GoldendKeys.Controllers
+namespace Borderlands2GoldenKeys.Controllers
 {
     public class ErrorController : AsyncController
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
 
-namespace Borderlands2GoldendKeys.Models
+namespace Borderlands2GoldenKeys.Models
 {
     public class ErrorInfo : HandleErrorInfo
     {

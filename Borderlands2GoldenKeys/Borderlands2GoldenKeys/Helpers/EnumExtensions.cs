@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
 
-namespace Borderlands2GoldendKeys
+namespace Borderlands2GoldenKeys
 {
     public static class EnumExtensions
     {

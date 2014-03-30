@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Borderlands2GoldendKeys.Models
+namespace Borderlands2GoldenKeys.Models
 {
     /// <summary>
     /// Quote from Borderlands's ClapTrap

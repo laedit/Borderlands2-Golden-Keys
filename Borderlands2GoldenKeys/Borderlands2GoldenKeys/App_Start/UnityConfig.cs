@@ -1,11 +1,11 @@
-using Borderlands2GoldendKeys.Helpers;
+using Borderlands2GoldenKeys.Helpers;
 using Microsoft.Practices.Unity;
 using PoliteCaptcha;
 using Raven.Client;
 using System.Web.Mvc;
 using Unity.Mvc5;
 
-namespace Borderlands2GoldendKeys
+namespace Borderlands2GoldenKeys
 {
     public static class UnityConfig
     {

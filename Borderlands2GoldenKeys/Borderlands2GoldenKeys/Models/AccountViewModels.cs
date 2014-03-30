@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Borderlands2GoldendKeys.Models
+namespace Borderlands2GoldenKeys.Models
 {
     public class LoginViewModel
     {
