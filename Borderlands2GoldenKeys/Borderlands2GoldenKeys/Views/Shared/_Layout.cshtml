@@ -11,7 +11,6 @@
         Borderlands 2: Golden Keys
     </title>
     @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/ga")
 
     <meta name="description" content="Borderlands 2: Golden keys provides SHift Codes from GearboxSoftware's twiter" />
@@ -19,9 +18,7 @@
     <link rel="alternate" type="application/rss+xml" title="RSS" href="@Url.Action("Rss", "Home", null, "http")" />
 </head>
 <body>
-    <script type="text/javascript">
-        CallAnalytics();
-    </script>
+    <script type="text/javascript">CallAnalytics();</script>
     @if (User.Identity.IsAuthenticated)
     {
         <div class="navbar navbar-default ">
