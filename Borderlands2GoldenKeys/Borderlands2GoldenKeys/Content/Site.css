@@ -1,12 +1,14 @@
 ﻿
 @font-face {
-    font-family: Top Secret;
-    src: url(/fonts/_TOP_SECRET_.otf) format('opentype');
+  font-family: 'Top Secret';
+  src: url('../fonts/_TOP_SECRET_.eot');
+  src: url('../fonts/_TOP_SECRET_.eot?#iefix') format('embedded-opentype'), url('../fonts/_TOP_SECRET_.woff') format('woff'), url('../fonts/_TOP_SECRET_.ttf') format('truetype'), url('../fonts/_TOP_SECRET_.svg#TOP_SECRET') format('svg');
 }
 
 @font-face {
-    font-family: Defused;
-    src: url(/fonts/defused.ttf) format('truetype');
+  font-family: 'Defused';
+  src: url('../fonts/defused.eot');
+  src: url('../fonts/defused.eot?#iefix') format('embedded-opentype'), url('../fonts/defused.woff') format('woff'), url('../fonts/defused.ttf') format('truetype'), url('../fonts/defused.svg#defused') format('svg');
 }
 
 body {
@@ -54,12 +56,12 @@ input[type="checkbox"].input-validation-error {
 
 .secret {
     color: darkred;
-    font-family: Top Secret;
+    font-family: 'Top Secret';
 }
 
 .defused {
     color: darkgoldenrod;
-    font-family: Defused;
+    font-family: 'Defused';
 }
 
 .displaynone {

@@ -273,10 +273,11 @@
     <Content Include="Content\images\ravendb.png" />
     <Content Include="Content\images\rss.png" />
     <Content Include="favicon.ico" />
+    <Content Include="fonts\defused.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="fonts\_TOP_SECRET_.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="fonts\_TOP_SECRET_.otf" />
     <Content Include="fonts\defused.ttf" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -288,6 +289,11 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
+    <Content Include="fonts\_TOP_SECRET_.eot" />
+    <Content Include="fonts\_TOP_SECRET_.ttf" />
+    <Content Include="fonts\_TOP_SECRET_.woff" />
+    <Content Include="fonts\defused.eot" />
+    <Content Include="fonts\defused.woff" />
     <None Include="Scripts\jquery-2.1.0.intellisense.js" />
     <Content Include="Scripts\ga.js" />
     <Content Include="Scripts\ga.min.js">
