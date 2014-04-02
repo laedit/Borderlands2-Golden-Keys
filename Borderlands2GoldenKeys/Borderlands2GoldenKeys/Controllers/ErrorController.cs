@@ -39,7 +39,8 @@ namespace Borderlands2GoldenKeys.Controllers
             var errorInfo = new ErrorInfo();
 
             HttpClient httpClient = new HttpClient();
-            var response = await httpClient.GetAsync("http://backend.deviantart.com/rss.xml?q=gallery%3Ajessemayberry%2F24147815&type=deviation");
+            httpClient.DefaultRequestHeaders.Add("User-Agent", "borderlands2goldenkeys.laedit.net/404");
+            var response = await httpClient.GetAsync("http://backend.deviantart.com/rss.xml?q=gallery:jessemayberry/24147815&type=deviation", HttpCompletionOption.ResponseHeadersRead);
 
             var feed = SyndicationFeed.Load(XmlReader.Create(await response.Content.ReadAsStreamAsync()));
 
