@@ -41,7 +41,8 @@ namespace Borderlands2GoldenKeys.Controllers
             var homeViewModel = new HomeViewModel();
 
             homeViewModel.ClapTrapQuote = _documentSession.Query<ClapTrapQuote>().Customize(q => q.RandomOrdering()).First();
-            homeViewModel.EnableMail = _documentSession.Load<Settings>(Settings.UniqueId).Mail.IsComplete;
+            var settings = _documentSession.Load<Settings>(Settings.UniqueId);
+            homeViewModel.EnableMail = settings != null && settings.Mail != null && settings.Mail.IsComplete;
             homeViewModel.Rows.StartIndex = 1;
 
             if (showAll)

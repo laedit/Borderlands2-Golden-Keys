@@ -35,21 +35,7 @@ namespace Borderlands2GoldenKeys.Helpers
                                     };
                     }
                 }
-                return new Dictionary<string, string> 
-                            {
-                                { "to", string.Empty },
-                                { "from", string.Empty },
-                                {"cc", string.Empty },
-                                {"subject", string.Empty },
-                                { "priority", string.Empty },
-                                { "async", string.Empty },
-                                { "smtpServer", string.Empty },
-                                { "smtpPort", string.Empty },
-                                { "userName", string.Empty },
-                                { "password", string.Empty },
-                                { "noYsod", string.Empty },
-                                { "useSsl", string.Empty }
-                            };
+                return base.GetConfig();
             }
         }
     }
