@@ -6,7 +6,7 @@
     {
         <tr>
             <td>@Html.DisplayFor(m => shiftCode.Platform)</td>
-            <td><span id="code@(i)">@Html.DisplayFor(m => shiftCode.Code)</span><span class="z-clip-wrap pull-right"><a href="#" id="btn@(i)" data-copy="#code@(i)" data-img="#img@(i)" class="btn btn-primary btn-sm codeCopy"><img id="img@(i)" class="imgCopy" src="~/Content/images/clipboard.png" alt="Copy to clipboard" title="Copy to clipboard" /></a></span></td>
+            <td><span id="code@(i)">@Html.DisplayFor(m => shiftCode.Code)</span><span class="z-clip-wrap pull-right copyContainer" data-toggle="tooltip" data-placement="bottom" data-title="Copy to clipboard"><a href="#" id="btn@(i)" data-copy="#code@(i)" data-img="#img@(i)" class="btn btn-primary btn-sm codeCopy" title="Copy to clipboard"><img id="img@(i)" class="imgCopy" src="~/Content/images/clipboard.png" alt="Copy to clipboard" title="Copy to clipboard" /></a></span></td>
             <td>@Html.DisplayFor(m => shiftCode.ExpirationDate)</td>
             <td><a class="btn btn-sm" href="@string.Format("https://twitter.com/GearboxSoftware/status/{0}", shiftCode.SourceStatusId)">Learn more &raquo;</a></td>
         </tr>
