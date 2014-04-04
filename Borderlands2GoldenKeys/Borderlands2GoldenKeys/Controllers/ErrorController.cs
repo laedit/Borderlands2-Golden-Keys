@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.ServiceModel.Syndication;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using System.Web.UI;
 using System.Xml;
 using System.Xml.Linq;
 
@@ -15,6 +16,7 @@ namespace Borderlands2GoldenKeys.Controllers
     {
         //
         // GET: /Error/
+        [OutputCache(Duration=365*24*60*60)]
         public async Task<ActionResult> IndexAsync()
         {
             Response.StatusCode = (int)HttpStatusCode.InternalServerError;
@@ -23,6 +25,7 @@ namespace Borderlands2GoldenKeys.Controllers
 
         //
         // GET: /Error/NotFound
+        [OutputCache(Location = OutputCacheLocation.None)]
         public async Task<ActionResult> NotFoundAsync(string aspxerrorpath)
         {
             Response.StatusCode = (int)HttpStatusCode.NotFound;

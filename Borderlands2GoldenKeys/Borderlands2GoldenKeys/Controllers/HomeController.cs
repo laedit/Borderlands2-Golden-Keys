@@ -9,9 +9,11 @@ using System.Net;
 using System.Net.Mail;
 using System.ServiceModel.Syndication;
 using System.Web.Mvc;
+using System.Web.UI;
 
 namespace Borderlands2GoldenKeys.Controllers
 {
+    [OutputCache(Location = OutputCacheLocation.None)]
     public class HomeController : Controller
     {
         private const int NumberToShow = 5;
