@@ -20,6 +20,7 @@ namespace Borderlands2GoldenKeys.Controllers
         public async Task<ActionResult> IndexAsync()
         {
             Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+            Response.TrySkipIisCustomErrors = true;
             return View("Error", await GetErrorInfoWithImageAsync());
         }
 
@@ -29,6 +30,7 @@ namespace Borderlands2GoldenKeys.Controllers
         public async Task<ActionResult> NotFoundAsync(string aspxerrorpath)
         {
             Response.StatusCode = (int)HttpStatusCode.NotFound;
+            Response.TrySkipIisCustomErrors = true;
 
             var errorInfo = await GetErrorInfoWithImageAsync();
             errorInfo.Is404 = true;
