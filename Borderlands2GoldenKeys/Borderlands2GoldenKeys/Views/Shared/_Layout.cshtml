@@ -20,7 +20,10 @@
 
     <link rel="shortcut icon" href="@Url.Content("~/favicon.ico")" type="image/x-icon" />
     <link rel="alternate" type="application/rss+xml" title="RSS" href="@Url.Action("Rss", "Home", null, "http")" />
-    <link rel="next" href="@Url.Action("ShowAll")" />
+    @if (!string.IsNullOrEmpty(@ViewBag.RelNext))
+    {
+    <link rel="next" href="@ViewBag.RelNext" />
+    }
 </head>
 <body>
     <script type="text/javascript">CallAnalytics();</script>
