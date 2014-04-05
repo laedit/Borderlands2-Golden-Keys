@@ -117,7 +117,7 @@ else
                                         <div class="form-group">
                                             @Html.LabelFor(m => m.Mail.MailFrom, new { @class = "col-md-2 control-label sr-only" })
                                             <div class="col-md-12">
-                                                @Html.TextBoxFor(m => m.Mail.MailFrom, new { @class = "form-control", placeholder = "Email" })
+                                                @Html.TextBoxFor(m => m.Mail.MailFrom, new { @class = "form-control", placeholder = "Email", type="email" })
                                                 @Html.ValidationMessageFor(m => m.Mail.MailFrom)
                                             </div>
                                         </div>

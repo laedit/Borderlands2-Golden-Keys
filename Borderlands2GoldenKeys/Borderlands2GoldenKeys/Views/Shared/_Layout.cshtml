@@ -3,6 +3,11 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="application-name" content="Borderlands 2: Golden Keys" />
+    <meta name="description" content="Borderlands 2: Golden keys provides SHift Codes from GearboxSoftware's twiter" />
+    <meta name="author" content="Laedit" />
+    <meta name="keywords" content="borderlands 2, golden, key, shift code" />
+    <meta name="google-site-verification" content="0x2a3iCXVHDviFHZ1dzFGHWQDqP-idw-P8yZUuT3MQM" />
     <title>
         @if (!string.IsNullOrEmpty(@ViewBag.Title))
         {
@@ -13,9 +18,9 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/ga")
 
-    <meta name="description" content="Borderlands 2: Golden keys provides SHift Codes from GearboxSoftware's twiter" />
     <link rel="shortcut icon" href="@Url.Content("~/favicon.ico")" type="image/x-icon" />
     <link rel="alternate" type="application/rss+xml" title="RSS" href="@Url.Action("Rss", "Home", null, "http")" />
+    <link rel="next" href="@Url.Action("ShowAll")" />
 </head>
 <body>
     <script type="text/javascript">CallAnalytics();</script>
