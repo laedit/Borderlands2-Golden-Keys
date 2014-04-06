@@ -139,21 +139,49 @@ function DocumentReadyInitializezClip() {
     $(document).ready(InitializezClip());
 }
 
-function InitializezClip()
-{
-    $('.codeCopy').zclip({
-        path: 'Scripts/ZeroClipboard.swf',
-        copy: function () {
-            return $($(this).data('copy')).text();
-        },
-        afterCopy: function () {
-            $('.imgCopy').each(function () {
-                $(this).attr("src", "/Content/images/clipboard.png");
-            });
-            $($(this).data('img')).attr("src", "/Content/images/clipboard-ok.png");
+function InitializezClip() {
+    if (HasFlashSupport()) {
+        $('.copyContainer').removeClass('hidden');
+
+        $('.codeCopy').zclip({
+            path: 'Scripts/ZeroClipboard.swf',
+            copy: function () {
+                return $($(this).data('copy')).text();
+            },
+            afterCopy: function () {
+                $('.imgCopy').each(function () {
+                    $(this).attr("src", "/Content/images/clipboard.png");
+                });
+                $($(this).data('img')).attr("src", "/Content/images/clipboard-ok.png");
+            }
+        });
+        $('.copyContainer').tooltip();
+    }
+}
+
+function HasFlashSupport() {
+    var flashMimeType = 'application/x-shockwave-flash';
+    var flashActiveX = ['ShockwaveFlash.ShockwaveFlash', 'ShockwaveFlash.ShockwaveFlash.3', 'ShockwaveFlash.ShockwaveFlash.4', 'ShockwaveFlash.ShockwaveFlash.5', 'ShockwaveFlash.ShockwaveFlash.6', 'ShockwaveFlash.ShockwaveFlash.7'];
+
+    //for standard compliant browsers
+    if (navigator.mimeTypes) {
+        var version;
+        if (navigator.mimeTypes[flashMimeType] && navigator.mimeTypes[flashMimeType].enabledPlugin) {
+                return true;
         }
-    });
-    $('.copyContainer').tooltip();
+    }
+    //for IE
+    if (typeof ActiveXObject != 'undefined') {
+        for (var i = 0; i < flashActiveX.length; i++) {
+            try {
+                new ActiveXObject(flashActiveX[i]);
+                return true;
+            }
+            catch (err) {
+            }
+        }
+    }
+    return false;
 }
 
 !function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https'; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = p + '://platform.twitter.com/widgets.js'; fjs.parentNode.insertBefore(js, fjs); } }(document, 'script', 'twitter-wjs');

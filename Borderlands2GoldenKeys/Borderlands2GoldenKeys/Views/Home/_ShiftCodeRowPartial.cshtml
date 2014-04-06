@@ -10,7 +10,7 @@
                 <span id="code@(i)">@Html.DisplayFor(m => shiftCode.Code)</span>
                 @if(!Request.Browser.IsMobileDevice)
                 {
-                    <span class="z-clip-wrap pull-right copyContainer hidden-print" data-toggle="tooltip" data-placement="bottom" data-title="Copy to clipboard"><a href="#" id="btn@(i)" data-copy="#code@(i)" data-img="#img@(i)" class="btn btn-primary btn-sm codeCopy" title="Copy to clipboard"><img id="img@(i)" class="imgCopy" src="~/Content/images/clipboard.png" alt="Copy to clipboard" title="Copy to clipboard" /></a></span>
+                    <span class="z-clip-wrap pull-right copyContainer hidden-print hidden" data-toggle="tooltip" data-placement="bottom" data-title="Copy to clipboard"><a href="#" id="btn@(i)" data-copy="#code@(i)" data-img="#img@(i)" class="btn btn-primary btn-sm codeCopy" title="Copy to clipboard"><img id="img@(i)" class="imgCopy" src="~/Content/images/clipboard.png" alt="Copy to clipboard" title="Copy to clipboard" /></a></span>
                 }
             </td>
             <td>@Html.DisplayFor(m => shiftCode.ExpirationDate)</td>
