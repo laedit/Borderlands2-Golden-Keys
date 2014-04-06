@@ -118,7 +118,6 @@ namespace Borderlands2GoldenKeys.Controllers
 
         const string RssItemContentTemplate = @"SHiFT Code: {0}<br />Expiration date: {1}<br /><a href=""http://twitter.com/GearboxSoftware/status/{2}"">Source</a>";
 
-        [HttpGet]
         public ActionResult Rss()
         {
             var shiftCodesQuery = _documentSession.Query<ShiftCode>().OrderByDescending(s => s.CreationDate);
