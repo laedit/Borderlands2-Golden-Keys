@@ -254,6 +254,15 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="apple-touch-icon-114x114.png" />
+    <Content Include="apple-touch-icon-120x120.png" />
+    <Content Include="apple-touch-icon-57x57.png" />
+    <Content Include="apple-touch-icon-60x60.png" />
+    <Content Include="apple-touch-icon-72x72.png" />
+    <Content Include="apple-touch-icon-76x76.png" />
+    <Content Include="apple-touch-icon-precomposed.png" />
+    <Content Include="apple-touch-icon.png" />
+    <Content Include="browserconfig.xml" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -268,17 +277,25 @@
     <Content Include="Content\images\freepik.png" />
     <Content Include="Content\images\github.png" />
     <Content Include="Content\images\glyphicons.png" />
+    <Content Include="Content\images\Golden Keys\large.png" />
+    <Content Include="Content\images\Golden Keys\square.png" />
+    <Content Include="Content\images\Golden Keys\tiny.png" />
+    <Content Include="Content\images\Golden Keys\wide.png" />
     <Content Include="Content\images\ikoula.png" />
     <Content Include="Content\images\linq2twitter.png" />
     <Content Include="Content\images\ravendb.png" />
     <Content Include="Content\images\rss.png" />
-    <Content Include="favicon.ico" />
+    <Content Include="favicon-16x16.png" />
+    <Content Include="favicon-196x196.png" />
+    <Content Include="favicon-32x32.png" />
+    <Content Include="favicon-96x96.png" />
     <Content Include="fonts\defused.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="fonts\_TOP_SECRET_.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="fonts\defused.ttf" />
+    <Content Include="favicon.ico" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\ga.min.js.map">
@@ -321,7 +338,9 @@
     </Content>
     <Content Include="Scripts\ZeroClipboard.swf" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>

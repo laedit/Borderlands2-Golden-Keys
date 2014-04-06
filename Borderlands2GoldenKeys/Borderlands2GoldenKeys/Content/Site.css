@@ -68,8 +68,9 @@ input[type="checkbox"].input-validation-error {
     display: none;
 }
 
-.table th, td {
+.table thead > tr > th, .table > tbody > tr > td {
     text-align: center;
+    vertical-align: middle;
 }
 
 .z-clip-wrap {

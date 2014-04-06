@@ -13,7 +13,7 @@
     </div>
 </div>
 
-<div class="row">
+<div class="row" role="complementary" aria-label="ClapTrap quote">
     <div class="col-md-12 text-center">
         <blockquote>
             @Model.ClapTrapQuote.Quote
@@ -25,15 +25,19 @@
 </div>
 @if (Model.Rows.HasShiftCodes)
 {
-    <div class="row">
+    <div class="row" role="main">
         <div class="col-md-12">
             <table class="table table-striped table-hover">
                 <thead>
                     <tr>
-                        <th class="col-md-1"><h4>Platform</h4></th>
-                        <th class="col-md-2"><h4>SHiFT Code</h4></th>
-                        <th class="col-md-1"><h4>Valid</h4></th>
-                        <th class="col-md-1 hidden-print"><h4>Source</h4></th>
+                        <th class="h4 col-md-1">Platform</th>
+                        <th class="h4 col-md-2">SHiFT Code</th>
+                        @if (!Request.Browser.IsMobileDevice)
+                        {
+                            <th class="h4 col-md-1 hidden-print hidden copyCellContainer">Copy</th>
+                        }
+                        <th class="h4 col-md-1">Valid</th>
+                        <th class="h4 col-md-1 hidden-print">Source</th>
                     </tr>
                 </thead>
                 <tbody id="shiftCodes">
@@ -106,7 +110,7 @@ else
                         </div>
                         @if (Model.EnableMail)
                         {
-                            <div class="row center-block">
+                            <div class="row center-block" role="form" aria-label="Send a mail">
                                 @using (Ajax.BeginForm("SendMail", null, new AjaxOptions
                                 {
                                     LoadingElementId = "mailLoader",
@@ -121,7 +125,7 @@ else
                                         <div class="form-group">
                                             @Html.LabelFor(m => m.Mail.MailFrom, new { @class = "col-md-2 control-label sr-only" })
                                             <div class="col-md-12">
-                                                @Html.TextBoxFor(m => m.Mail.MailFrom, new { @class = "form-control", placeholder = "Email", type="email" })
+                                                @Html.TextBoxFor(m => m.Mail.MailFrom, new { @class = "form-control", placeholder = "Email", type = "email" })
                                                 @Html.ValidationMessageFor(m => m.Mail.MailFrom)
                                             </div>
                                         </div>
@@ -183,5 +187,5 @@ else
 {
     @Html.SpamPreventionScript()
     <script type="text/javascript" src="http://www.google.com/recaptcha/api/js/recaptcha_ajax.js"></script>
-    <script type="text/javascript">DocumentReadyInitializeTooltip();DocumentReadyInitializezClip();</script>
+    <script type="text/javascript">DocumentReadyInitializeTooltip(); DocumentReadyInitializezClip();</script>
 }

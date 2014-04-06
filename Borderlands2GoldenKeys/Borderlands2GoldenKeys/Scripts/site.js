@@ -141,7 +141,7 @@ function DocumentReadyInitializezClip() {
 
 function InitializezClip() {
     if (HasFlashSupport()) {
-        $('.copyContainer').removeClass('hidden');
+        $('.copyCellContainer').removeClass('hidden');
 
         $('.codeCopy').zclip({
             path: 'Scripts/ZeroClipboard.swf',
