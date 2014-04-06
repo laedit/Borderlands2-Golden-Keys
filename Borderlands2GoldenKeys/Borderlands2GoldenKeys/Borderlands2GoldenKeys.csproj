@@ -296,6 +296,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="fonts\defused.ttf" />
     <Content Include="favicon.ico" />
+    <Content Include="robots.txt" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\ga.min.js.map">
@@ -338,6 +339,7 @@
     </Content>
     <Content Include="Scripts\ZeroClipboard.swf" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="sitemap.xml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
