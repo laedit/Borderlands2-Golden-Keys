@@ -115,6 +115,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.6.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="NWebsec">
+      <HintPath>..\packages\NWebsec.3.0.1\lib\40\NWebsec.dll</HintPath>
+    </Reference>
+    <Reference Include="NWebsec.Mvc">
+      <HintPath>..\packages\NWebsec.Mvc.3.0.1\lib\40\NWebsec.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="PoliteCaptcha">
       <HintPath>..\packages\PoliteCaptcha.0.4.0.1\lib\net40\PoliteCaptcha.dll</HintPath>
     </Reference>
@@ -312,6 +318,9 @@
     <Content Include="fonts\_TOP_SECRET_.woff" />
     <Content Include="fonts\defused.eot" />
     <Content Include="fonts\defused.woff" />
+    <None Include="NWebsecConfig\HttpHeaderSecurityModuleConfig.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Scripts\jquery-2.1.0.intellisense.js" />
     <Content Include="Scripts\ga.js" />
     <Content Include="Scripts\ga.min.js">
