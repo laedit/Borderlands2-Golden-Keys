@@ -57,6 +57,7 @@ namespace Borderlands2GoldenKeys.Controllers
         //
         // POST: /Settings/
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Index(Settings settings)
         {
             if (ModelState.IsValid)
@@ -84,6 +85,7 @@ namespace Borderlands2GoldenKeys.Controllers
         //
         // POST: Settings/GetBaseRawTweets
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<JsonResult> GetBaseRawTweets()
         {
             ResultMessage message = null;
@@ -119,6 +121,7 @@ namespace Borderlands2GoldenKeys.Controllers
         //
         // POST: Settings/LaunchUpdateProcess
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public JsonResult LaunchUpdateProcess()
         {
             ResultMessage message = null;
@@ -158,6 +161,7 @@ namespace Borderlands2GoldenKeys.Controllers
         //
         // POST: Settings/DeleteAll
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public JsonResult DeleteAll()
         {
             ResultMessage message = null;

@@ -119,6 +119,7 @@ else
                                     OnSuccess = "SendMailSuccess"
                                 }, new { @class = "form-horizontal col-md-12", id = "contactForm" }))
                                 {
+                                    @Html.AntiForgeryToken()
                                     <div id="mailForm">
                                         Or you could just send a mail :
                                         <br />

@@ -101,7 +101,7 @@
 <div class="row">
     <div class="col-md-12">
         <h4>
-            Data processing 
+            Data processing
             @if (Model.UpdateRunning)
             {
                 <small id="updateStatus" class="text-success">Update running</small>
@@ -128,8 +128,9 @@
             OnSuccess = "GetBaseRawTweetsSuccess"
         }))
         {
+            @Html.AntiForgeryToken()
             <input id="BaseTweetsButton"
-                   @if (Model.DisableFillDatabaseButton) { <text> disabled="disabled" </text>  }
+                   @if (Model.DisableFillDatabaseButton) { <text> disabled="disabled" </text>   }
                    type="submit" value="Fill database"
                    class="btn btn-default btn-sm" />
         }
@@ -159,6 +160,7 @@
             OnSuccess = "LaunchUpdateProcessSuccess"
         }))
         {
+            @Html.AntiForgeryToken()
             <input id="LaunchUpdateProcess"
                    disabled="@Model.DisableLaunchUpdateProcessButton"
                    type="submit" value="Launch update process"
@@ -190,8 +192,9 @@
             OnSuccess = "DeleteAllSuccess"
         }))
         {
+            @Html.AntiForgeryToken()
             <input id="DeleteAll"
-                   @if (Model.DisableDeleteAllButton) { <text> disabled="disabled" </text>  }
+                   @if (Model.DisableDeleteAllButton) { <text> disabled="disabled" </text>   }
                    type="submit" value="Delete all"
                    class="btn btn-default btn-sm btn-danger" />
         }

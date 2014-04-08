@@ -1,5 +1,6 @@
 ﻿using Borderlands2GoldenKeys.Helpers;
 using Borderlands2GoldenKeys.Models;
+using NWebsec.Mvc.HttpHeaders;
 using PoliteCaptcha;
 using Raven.Client;
 using System;
@@ -14,6 +15,7 @@ using System.Web.UI;
 namespace Borderlands2GoldenKeys.Controllers
 {
     [OutputCache(Location = OutputCacheLocation.None)]
+    [XRobotsTag(Enabled = true, NoArchive = true, NoOdp = true, NoImageIndex = true)]
     public class HomeController : Controller
     {
         private const int NumberToShow = 5;
@@ -80,6 +82,7 @@ namespace Borderlands2GoldenKeys.Controllers
         }
 
         [HttpPost, ValidateSpamPrevention]
+        [ValidateAntiForgeryToken]
         public JsonResult SendMail(Mail mail)
         {
             ResultMessage resultMessage = new ResultMessage { Success = false };
