@@ -7,6 +7,7 @@
     <meta name="description" content="Borderlands 2: Golden keys provides SHift Codes from GearboxSoftware's twiter" />
     <meta name="author" content="Laedit" />
     <meta name="keywords" content="borderlands 2, golden, key, shift code" />
+    <meta name="msapplication-TileColor" content="#111111">
     <meta name="google-site-verification" content="0x2a3iCXVHDviFHZ1dzFGHWQDqP-idw-P8yZUuT3MQM" />
     <title>
         @if (!string.IsNullOrEmpty(@ViewBag.Title))
@@ -27,11 +28,11 @@
     <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
     <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
     <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
-    <meta name="msapplication-TileColor" content="#111111">
     <link rel="alternate" type="application/rss+xml" title="RSS" href="@Url.Action("Rss", "Home", null, "http")" />
+    <link rel="author" type="text/plain" href="~/humans.txt" />
     @if (!string.IsNullOrEmpty(@ViewBag.RelNext))
     {
-    <link rel="next" href="@ViewBag.RelNext" />
+        <link rel="next" href="@ViewBag.RelNext" />
     }
 </head>
 <body>

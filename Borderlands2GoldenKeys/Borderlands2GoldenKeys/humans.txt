@@ -1,0 +1,14 @@
+﻿/* TEAM */
+Your title: Jérémie Bertrand aka Laedit
+Site: laedit.net
+Twitter: @laedit
+Location: Strasbourg, France
+
+/* THANKS */
+Dafont (dafont.com) and Freepik (freepik.com) for the fonts and icons
+
+/* SITE */
+Last update: 2014/04/08
+Standards: HTML5
+Components: ASP.NET MVC, RavenDB, LinqToTwitter, PoliteCaptcha, jQuery, Bootstrap, Bootswatch, glyphicon
+Software: Visual Studio, Notepad++, Filezilla
