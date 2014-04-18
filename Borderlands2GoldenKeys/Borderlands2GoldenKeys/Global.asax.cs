@@ -16,6 +16,8 @@ namespace Borderlands2GoldenKeys
 
         protected void Application_Start()
         {
+            //MvcHandler.DisableMvcResponseHeader = true;
+
             AreaRegistration.RegisterAllAreas();
             UnityConfig.RegisterComponents();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
@@ -38,8 +40,10 @@ namespace Borderlands2GoldenKeys
 
                 var updateProcess = DependencyResolver.Current.GetService<ShiftCodeUpdateProcess>();
                 var settings = documentSession.Load<Settings>(Settings.UniqueId);
+                Elmah.ErrorLog.GetDefault(null).Log(new Elmah.Error(new Exception((settings.Twitter != null) + " / " + settings.Twitter.IsComplete + " / " + settings.Twitter.APIKey + " / " + settings.Twitter.APISecret)));
                 if (!updateProcess.IsRunning && settings != null && settings.Twitter != null && settings.Twitter.IsComplete)
                 {
+                    Elmah.ErrorLog.GetDefault(null).Log(new Elmah.Error(new Exception("Start update process")));
                     updateProcess.Start();
                 }
 
@@ -67,9 +71,11 @@ namespace Borderlands2GoldenKeys
 
             if (HttpContext.Current.Request.RawUrl.EndsWith("/Settings/RestardUpdateProcess"))
             {
+                Elmah.ErrorLog.GetDefault(null).Log(new Elmah.Error(new Exception("RestardUpdateProcess: Request")));
                 var updateProcess = DependencyResolver.Current.GetService<ShiftCodeUpdateProcess>();
                 if (!updateProcess.IsRunning)
                 {
+                    Elmah.ErrorLog.GetDefault(null).Log(new Elmah.Error(new Exception("RestardUpdateProcess: Start")));
                     updateProcess.Start();
                 }
             }
