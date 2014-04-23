@@ -35,7 +35,7 @@ namespace Borderlands2GoldenKeys.Helpers
             HttpContext.Current.Cache.Add(CacheKey, "Start", null,
                 DateTime.MaxValue,
 #if DEBUG
- TimeSpan.FromMinutes(1),
+                TimeSpan.FromMinutes(1),
 #else
                 TimeSpan.FromMinutes(30), 
 #endif
@@ -55,20 +55,42 @@ namespace Borderlands2GoldenKeys.Helpers
 
         private async Task UpdateShiftCodesAsync()
         {
-            Elmah.ErrorLog.GetDefault(null).Log(new Elmah.Error(new Exception("UpdateShiftCodesAsync")));
+            if (MvcApplication.IsTraceEnabled)
+            {
+                Elmah.ErrorLog.GetDefault(null).Log(new Elmah.Error(new Exception("UpdateShiftCodesAsync")));
+            }
+
             var settings = _documentSession.Load<Settings>(Settings.UniqueId);
 
             var shiftCodeRecuperator = new ShiftCodeRecuperator(settings.Twitter.APIKey, settings.Twitter.APISecret);
             var lastId = _documentSession.Advanced.LuceneQuery<ShiftCode>().Select(s => s.SourceStatusId).Max();
 
-            Elmah.ErrorLog.GetDefault(null).Log(new Elmah.Error(new Exception("Last id: " + lastId)));
+            if (MvcApplication.IsTraceEnabled)
+            {
+                Elmah.ErrorLog.GetDefault(null).Log(new Elmah.Error(new Exception("Last id: " + lastId)));
+            }
+
             var statuses = await shiftCodeRecuperator.GetUpdateRawTweetsAsync(lastId);
-            Elmah.ErrorLog.GetDefault(null).Log(new Elmah.Error(new Exception("Statuses count: " + statuses.Count)));
+
+
+            if (MvcApplication.IsTraceEnabled)
+            {
+                Elmah.ErrorLog.GetDefault(null).Log(new Elmah.Error(new Exception("Statuses count: " + statuses.Count)));
+            }
+
             var shiftCodes = ShiftCodeRecuperator.ParseTweets(statuses);
-            Elmah.ErrorLog.GetDefault(null).Log(new Elmah.Error(new Exception("Shift codes count: " + shiftCodes.Count)));
+
+            if (MvcApplication.IsTraceEnabled)
+            {
+                Elmah.ErrorLog.GetDefault(null).Log(new Elmah.Error(new Exception("Shift codes count: " + shiftCodes.Count)));
+            }
             if (shiftCodes != null && shiftCodes.Count > 0)
             {
-                Elmah.ErrorLog.GetDefault(null).Log(new Elmah.Error(new Exception("Add shift codes")));
+
+                if (MvcApplication.IsTraceEnabled)
+                {
+                    Elmah.ErrorLog.GetDefault(null).Log(new Elmah.Error(new Exception("Add shift codes")));
+                }
                 shiftCodes.ForEach(s => _documentSession.Store(s));
                 _documentSession.SaveChanges();
             }
@@ -80,7 +102,10 @@ namespace Borderlands2GoldenKeys.Helpers
 
             HttpClient httpClient = new HttpClient();
 
-            Elmah.ErrorLog.GetDefault(null).Log(new Elmah.Error(new Exception("RestardUpdateProcess")));
+            if (MvcApplication.IsTraceEnabled)
+            {
+                Elmah.ErrorLog.GetDefault(null).Log(new Elmah.Error(new Exception("RestardUpdateProcess")));
+            }
             await httpClient.GetStringAsync(string.Format("{0}/Settings/RestardUpdateProcess", MvcApplication.BaseUrl));
             // TODO secure call?
         }

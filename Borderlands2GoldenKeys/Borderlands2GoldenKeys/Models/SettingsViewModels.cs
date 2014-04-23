@@ -24,11 +24,15 @@ namespace Borderlands2GoldenKeys.Models
 
         public ReCaptchaSettings ReCaptcha { get; set; }
 
+        [Display(Name="Enable trace")]
+        public bool IsTraceEnabled { get; set; }
+
         public void UpdateFrom(Settings settings)
         {
             Twitter = settings.Twitter;
             Mail = settings.Mail;
             ReCaptcha = settings.ReCaptcha;
+            IsTraceEnabled = settings.IsTraceEnabled;
         }
     }
 

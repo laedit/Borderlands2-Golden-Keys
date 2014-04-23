@@ -47,6 +47,7 @@ namespace Borderlands2GoldenKeys.Controllers
             {
                 viewModel.Settings = settings;
             }
+            viewModel.Settings.IsTraceEnabled = MvcApplication.IsTraceEnabled;
             viewModel.DisableFillDatabaseButton = viewModel.Settings == null || viewModel.Settings.Twitter == null || !viewModel.Settings.Twitter.IsComplete || anyDocs;
             viewModel.DisableLaunchUpdateProcessButton = !viewModel.DisableFillDatabaseButton || _updateProcess.IsRunning || viewModel.Settings == null || viewModel.Settings.Twitter == null || !viewModel.Settings.Twitter.IsComplete;
             viewModel.DisableDeleteAllButton = !anyDocs;
@@ -62,6 +63,7 @@ namespace Borderlands2GoldenKeys.Controllers
         {
             if (ModelState.IsValid)
             {
+                MvcApplication.IsTraceEnabled = settings.IsTraceEnabled;
                 _documentSession.Store(settings);
                 _documentSession.SaveChanges();
             }

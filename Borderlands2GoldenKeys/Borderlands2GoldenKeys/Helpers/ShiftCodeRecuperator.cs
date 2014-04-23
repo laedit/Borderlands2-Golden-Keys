@@ -111,7 +111,7 @@ namespace Borderlands2GoldenKeys.Helpers
                     }
                     else
                     {
-                        Elmah.ErrorSignal.FromCurrentContext().Raise(new InvalidOperationException(string.Format("This status does not have an understandable platform.{0}\"{1}\"", Environment.NewLine, status.Text)));
+                        Elmah.ErrorSignal.FromCurrentContext().Raise(new InvalidOperationException(string.Format("This status does not have an understandable platform. {0}\"{1}\"", Environment.NewLine, status.Text)));
                     }
 
                     var rawExpirationDate = _expirationDateRegex.Match(status.Text);
