@@ -55,45 +55,53 @@ namespace Borderlands2GoldenKeys.Helpers
 
         private async Task UpdateShiftCodesAsync()
         {
-            if (MvcApplication.IsTraceEnabled)
-            {
-                Elmah.ErrorLog.GetDefault(null).Log(new Elmah.Error(new Exception("UpdateShiftCodesAsync")));
-            }
+            MvcApplication.Trace("UpdateShiftCodesAsync");
 
             var settings = _documentSession.Load<Settings>(Settings.UniqueId);
 
             var shiftCodeRecuperator = new ShiftCodeRecuperator(settings.Twitter.APIKey, settings.Twitter.APISecret);
             var lastId = _documentSession.Advanced.LuceneQuery<ShiftCode>().Select(s => s.SourceStatusId).Max();
 
-            if (MvcApplication.IsTraceEnabled)
+            MvcApplication.Trace("Last id: {0}", lastId);
+
+            foreach (var account in settings.Twitter.SourceAccounts)
             {
-                Elmah.ErrorLog.GetDefault(null).Log(new Elmah.Error(new Exception("Last id: " + lastId)));
-            }
-
-            var statuses = await shiftCodeRecuperator.GetUpdateRawTweetsAsync(lastId);
-
-
-            if (MvcApplication.IsTraceEnabled)
-            {
-                Elmah.ErrorLog.GetDefault(null).Log(new Elmah.Error(new Exception("Statuses count: " + statuses.Count)));
-            }
-
-            var shiftCodes = ShiftCodeRecuperator.ParseTweets(statuses);
-
-            if (MvcApplication.IsTraceEnabled)
-            {
-                Elmah.ErrorLog.GetDefault(null).Log(new Elmah.Error(new Exception("Shift codes count: " + shiftCodes.Count)));
-            }
-            if (shiftCodes != null && shiftCodes.Count > 0)
-            {
-
-                if (MvcApplication.IsTraceEnabled)
+                if (account.IsInitialized)
                 {
-                    Elmah.ErrorLog.GetDefault(null).Log(new Elmah.Error(new Exception("Add shift codes")));
+                    // Update
+                    var statuses = await shiftCodeRecuperator.GetUpdateRawTweetsAsync(lastId, account.Name);
+
+                    MvcApplication.Trace("Statuses count for account '{0}': {1}", account.Name, statuses.Count);
+
+                    var shiftCodes = ShiftCodeRecuperator.ParseTweets(statuses);
+
+                    MvcApplication.Trace("Shift codes count for account '{0}': {1}", account.Name, shiftCodes.Count);
+
+                    if (shiftCodes != null && shiftCodes.Count > 0)
+                    {
+
+                        MvcApplication.Trace("Add shift codes for account '{0}'", account.Name);
+
+                        shiftCodes.ForEach(s => _documentSession.Store(s));
+                        _documentSession.SaveChanges();
+                    }
                 }
-                shiftCodes.ForEach(s => _documentSession.Store(s));
-                _documentSession.SaveChanges();
+                else
+                {
+                    // Initialization
+                    account.IsInitialized = true;
+                    var tweets = await shiftCodeRecuperator.GetBaseRawTweetsAsync(account.Name);
+                    var shiftCodes = ShiftCodeRecuperator.ParseTweets(tweets);
+
+                    shiftCodes.ForEach(s => _documentSession.Store(s));
+
+                    _documentSession.Store(settings);
+                    _documentSession.SaveChanges();
+
+                    MvcApplication.Trace("{0} shift codes in database for account '{1}'.", shiftCodes.Count, account.Name);
+                }
             }
+
         }
 
         public async void CacheItemRemovedCallback(string key, object value, CacheItemRemovedReason reason)
@@ -102,10 +110,8 @@ namespace Borderlands2GoldenKeys.Helpers
 
             HttpClient httpClient = new HttpClient();
 
-            if (MvcApplication.IsTraceEnabled)
-            {
-                Elmah.ErrorLog.GetDefault(null).Log(new Elmah.Error(new Exception("RestardUpdateProcess")));
-            }
+            MvcApplication.Trace("RestardUpdateProcess");
+
             await httpClient.GetStringAsync(string.Format("{0}/Settings/RestardUpdateProcess", MvcApplication.BaseUrl));
             // TODO secure call?
         }

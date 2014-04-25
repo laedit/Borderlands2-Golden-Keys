@@ -64,8 +64,13 @@ namespace Borderlands2GoldenKeys.Controllers
             if (ModelState.IsValid)
             {
                 MvcApplication.IsTraceEnabled = settings.IsTraceEnabled;
-                _documentSession.Store(settings);
+                var oldSettings = _documentSession.Load<Settings>(Settings.UniqueId);
+                oldSettings.UpdateFrom(settings);
+
+                _documentSession.Store(oldSettings);
                 _documentSession.SaveChanges();
+
+                settings = oldSettings;
             }
             return View(GetSettingsViewModel(settings));
         }
@@ -77,8 +82,8 @@ namespace Borderlands2GoldenKeys.Controllers
             var twitterSettings = _documentSession.Query<Settings>().FirstOrDefault();
 
             var shiftCodeRecuperator = new ShiftCodeRecuperator(twitterSettings.Twitter.APIKey, twitterSettings.Twitter.APISecret);
-            var tweets = await shiftCodeRecuperator.GetBaseRawTweetsAsync();
-            tweets = await shiftCodeRecuperator.GetUpdateRawTweetsAsync(tweets.Max(t => t.StatusID));
+            var tweets = await shiftCodeRecuperator.GetBaseRawTweetsAsync("GearboxSoftware");
+            tweets = await shiftCodeRecuperator.GetUpdateRawTweetsAsync(tweets.Max(t => t.StatusID), "GearboxSoftware");
             var shiftCodes = ShiftCodeRecuperator.ParseTweets(tweets);
 
             return View(shiftCodes);
@@ -93,23 +98,38 @@ namespace Borderlands2GoldenKeys.Controllers
             ResultMessage message = null;
             try
             {
-                var twitterSettings = _documentSession.Query<Settings>().FirstOrDefault();
+                var settings = _documentSession.Query<Settings>().FirstOrDefault();
+                var twitterSettings = settings.Twitter;
 
-                var shiftCodeRecuperator = new ShiftCodeRecuperator(twitterSettings.Twitter.APIKey, twitterSettings.Twitter.APISecret);
-                var tweets = await shiftCodeRecuperator.GetBaseRawTweetsAsync();
-                var shiftCodes = ShiftCodeRecuperator.ParseTweets(tweets);
+                var shiftCodeRecuperator = new ShiftCodeRecuperator(twitterSettings.APIKey, twitterSettings.APISecret);
 
-                shiftCodes.ForEach(s => _documentSession.Store(s));
+                int totalShiftCodes = 0;
+                foreach (var account in twitterSettings.SourceAccounts)
+                {
+                    if (!account.IsInitialized)
+                    {
+                        account.IsInitialized = true;
+                        var tweets = await shiftCodeRecuperator.GetBaseRawTweetsAsync(account.Name);
+                        var shiftCodes = ShiftCodeRecuperator.ParseTweets(tweets);
+
+                        shiftCodes.ForEach(s => _documentSession.Store(s));
+
+                        totalShiftCodes += shiftCodes.Count;
+                    }
+                }
+
+                _documentSession.Store(settings);
                 _documentSession.SaveChanges();
+
                 message = new ResultMessage
                 {
                     Success = true,
-                    Message = string.Format("{0} shift codes in database.", shiftCodes.Count)
+                    Message = string.Format("{0} shift codes in database.", totalShiftCodes)
                 };
             }
             catch (Exception ex)
             {
-                Elmah.ErrorSignal.FromCurrentContext().Raise(ex);
+                MvcApplication.Log(ex);
 
                 message = new ResultMessage
                 {
@@ -149,7 +169,7 @@ namespace Borderlands2GoldenKeys.Controllers
             }
             catch (Exception ex)
             {
-                Elmah.ErrorSignal.FromCurrentContext().Raise(ex);
+                MvcApplication.Log(ex);
 
                 message = new ResultMessage
                 {
@@ -181,7 +201,7 @@ namespace Borderlands2GoldenKeys.Controllers
             }
             catch (Exception ex)
             {
-                Elmah.ErrorSignal.FromCurrentContext().Raise(ex);
+                MvcApplication.Log(ex);
 
                 message = new ResultMessage
                 {

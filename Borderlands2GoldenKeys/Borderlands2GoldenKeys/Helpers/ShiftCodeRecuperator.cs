@@ -43,13 +43,13 @@ namespace Borderlands2GoldenKeys.Helpers
             return twitterContext;
         }
 
-        public async Task<List<Status>> GetBaseRawTweetsAsync()
+        public async Task<List<Status>> GetBaseRawTweetsAsync(string accountName)
         {
             var twitterContext = await InitializeTwitterContextAsync();
 
             var searchResponse = await (from search in twitterContext.Status
                                         where search.Type == StatusType.User &&
-                                              search.ScreenName == "GearboxSoftware" &&
+                                              search.ScreenName == accountName &&
                                               search.Count == 3200
                                         select search)
                                         .ToListAsync();
@@ -64,7 +64,7 @@ namespace Borderlands2GoldenKeys.Helpers
             return null;
         }
 
-        public async Task<List<Status>> GetUpdateRawTweetsAsync(ulong lastId)
+        public async Task<List<Status>> GetUpdateRawTweetsAsync(ulong lastId, string accountName)
         {
             var twitterContext = await InitializeTwitterContextAsync();
 
@@ -72,7 +72,7 @@ namespace Borderlands2GoldenKeys.Helpers
                                         where search.Type == SearchType.Search &&
                                               search.SinceID == lastId &&
                                               search.IncludeEntities == false &&
-                                              search.Query == "from:GearboxSoftware Golden Borderlands"
+                                              search.Query == string.Format("from:{0} Golden Borderlands", accountName)
                                         select search)
                                         .SingleOrDefaultAsync();
 
@@ -111,7 +111,7 @@ namespace Borderlands2GoldenKeys.Helpers
                     }
                     else
                     {
-                        Elmah.ErrorSignal.FromCurrentContext().Raise(new InvalidOperationException(string.Format("This status does not have an understandable platform. {0}\"{1}\"", Environment.NewLine, status.Text)));
+                        MvcApplication.Log("This status does not have an understandable platform.{0}\"{1}\"", Environment.NewLine, status.Text);
                     }
 
                     var rawExpirationDate = _expirationDateRegex.Match(status.Text);

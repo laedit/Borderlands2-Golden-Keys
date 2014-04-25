@@ -1,4 +1,5 @@
 ﻿using Raven.Imports.Newtonsoft.Json;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Borderlands2GoldenKeys.Models
@@ -29,7 +30,8 @@ namespace Borderlands2GoldenKeys.Models
 
         public void UpdateFrom(Settings settings)
         {
-            Twitter = settings.Twitter;
+            Twitter.APIKey = settings.Twitter.APIKey;
+            Twitter.APISecret= settings.Twitter.APISecret;
             Mail = settings.Mail;
             ReCaptcha = settings.ReCaptcha;
             IsTraceEnabled = settings.IsTraceEnabled;
@@ -44,11 +46,24 @@ namespace Borderlands2GoldenKeys.Models
         [Display(Name = "API secret")]
         public string APISecret { get; set; }
 
+        public List<SourceAccount> SourceAccounts { get; set; }
+
         [JsonIgnore]
         public bool IsComplete
         {
-            get { return !string.IsNullOrEmpty(APIKey) && !string.IsNullOrEmpty(APISecret); }
+            get { return !string.IsNullOrEmpty(APIKey) && !string.IsNullOrEmpty(APISecret) && SourceAccounts.Count > 0; }
         }
+
+        public TwitterSettings()
+        {
+            SourceAccounts = new List<SourceAccount>();
+        }
+    }
+
+    public class SourceAccount
+    {
+        public string Name { get; set; }
+        public bool IsInitialized { get; set; }
     }
 
     public class MailSettings

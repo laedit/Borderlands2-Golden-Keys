@@ -33,6 +33,27 @@ namespace Borderlands2GoldenKeys
         {
             using (IDocumentSession documentSession = DependencyResolver.Current.GetService<IDocumentSession>())
             {
+                var settings = documentSession.Load<Settings>(Settings.UniqueId);
+
+                if (settings == null)
+                {
+                    settings = new Settings();
+                    settings.Twitter = new TwitterSettings();
+
+                    documentSession.Store(settings);
+                    documentSession.SaveChanges();
+                }
+
+                // Store twitter accounts to parse
+                if (settings.Twitter.SourceAccounts.Count == 0)
+                {
+                    settings.Twitter.SourceAccounts.Add(new SourceAccount { Name = "GearboxSoftware", IsInitialized = documentSession.Query<ShiftCode>().Any() });
+                    settings.Twitter.SourceAccounts.Add(new SourceAccount { Name = "Borderlands", IsInitialized = false });
+
+                    documentSession.Store(settings);
+                    documentSession.SaveChanges();
+                }
+
                 // Store some ClapTrap's quotes if needed
                 if (!documentSession.Query<ClapTrapQuote>().Any())
                 {
@@ -40,28 +61,20 @@ namespace Borderlands2GoldenKeys
                     documentSession.SaveChanges();
                 }
 
-                var updateProcess = DependencyResolver.Current.GetService<ShiftCodeUpdateProcess>();
-                var settings = documentSession.Load<Settings>(Settings.UniqueId);
+                IsTraceEnabled = settings.IsTraceEnabled;
 
-                if (settings != null)
+                if (settings.Twitter != null)
                 {
-                    IsTraceEnabled = settings.IsTraceEnabled;
-
-                    if (IsTraceEnabled)
-                    {
-                        Elmah.ErrorLog.GetDefault(null).Log(new Elmah.Error(new Exception((settings.Twitter != null) + " / " + settings.Twitter.IsComplete + " / " + settings.Twitter.APIKey + " / " + settings.Twitter.APISecret)));
-                    }
+                    Trace("{0} / {1} / {2}", settings.Twitter.IsComplete, settings.Twitter.APIKey, settings.Twitter.APISecret);
                 }
 
-                if (!updateProcess.IsRunning && settings != null && settings.Twitter != null && settings.Twitter.IsComplete)
+                var updateProcess = DependencyResolver.Current.GetService<ShiftCodeUpdateProcess>();
+
+                if (!updateProcess.IsRunning && settings.Twitter != null && settings.Twitter.IsComplete)
                 {
-                    if (IsTraceEnabled)
-                    {
-                        Elmah.ErrorLog.GetDefault(null).Log(new Elmah.Error(new Exception("Start update process")));
-                    }
+                    Trace("Start update process");
                     updateProcess.Start();
                 }
-
             }
         }
 
@@ -88,18 +101,36 @@ namespace Borderlands2GoldenKeys
             {
                 if (IsTraceEnabled)
                 {
-                    Elmah.ErrorLog.GetDefault(null).Log(new Elmah.Error(new Exception("RestardUpdateProcess: Request")));
+                    Trace("RestardUpdateProcess: Request");
                 }
                 var updateProcess = DependencyResolver.Current.GetService<ShiftCodeUpdateProcess>();
                 if (!updateProcess.IsRunning)
                 {
                     if (IsTraceEnabled)
                     {
-                        Elmah.ErrorLog.GetDefault(null).Log(new Elmah.Error(new Exception("RestardUpdateProcess: Start")));
+                        Trace("RestardUpdateProcess: Start");
                     }
                     updateProcess.Start();
                 }
             }
+        }
+
+        internal static void Trace(string message, params object[] args)
+        {
+            if (IsTraceEnabled)
+            {
+                Elmah.ErrorLog.GetDefault(null).Log(new Elmah.Error(new Exception(string.Format(message, args))));
+            }
+        }
+
+        internal static void Log(string message, params object[] args)
+        {
+            Elmah.ErrorSignal.FromCurrentContext().Raise(new InvalidOperationException(string.Format(message, args)));
+        }
+
+        internal static void Log(Exception ex)
+        {
+            Elmah.ErrorSignal.FromCurrentContext().Raise(ex);
         }
     }
 }
