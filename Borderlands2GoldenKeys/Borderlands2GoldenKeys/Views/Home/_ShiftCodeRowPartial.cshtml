@@ -16,7 +16,7 @@
                 </td>
             }
             <td>@Html.DisplayFor(m => shiftCode.ExpirationDate)</td>
-            <td class="hidden-print"><a class="btn btn-sm" href="@string.Format("https://twitter.com/GearboxSoftware/status/{0}", shiftCode.SourceStatusId)">Learn more &raquo;</a></td>
+            <td class="hidden-print"><a class="btn btn-sm" href="@string.Format("https://twitter.com/{0}/status/{1}", shiftCode.SourceAccount, shiftCode.SourceStatusId)">Learn more &raquo;</a></td>
         </tr>
             i++;
     }

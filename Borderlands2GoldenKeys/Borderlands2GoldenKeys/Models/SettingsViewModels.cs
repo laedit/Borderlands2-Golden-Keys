@@ -28,6 +28,8 @@ namespace Borderlands2GoldenKeys.Models
         [Display(Name="Enable trace")]
         public bool IsTraceEnabled { get; set; }
 
+        public int DataVersion { get; set; }
+
         public void UpdateFrom(Settings settings)
         {
             Twitter.APIKey = settings.Twitter.APIKey;

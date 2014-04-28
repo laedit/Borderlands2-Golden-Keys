@@ -18,6 +18,8 @@ namespace Borderlands2GoldenKeys.Models
         public ulong SourceStatusId { get; set; }
 
         public DateTime CreationDate { get; set; }
+
+        public string SourceAccount { get; set; }
     }
 
     public enum Platform
