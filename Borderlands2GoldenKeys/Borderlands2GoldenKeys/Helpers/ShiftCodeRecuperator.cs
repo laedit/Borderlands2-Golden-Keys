@@ -124,7 +124,7 @@ namespace Borderlands2GoldenKeys.Helpers
 
                     shiftCode.SourceStatusId = status.StatusID;
 
-                    shiftCode.SourceAccount = status.ScreenName;
+                    shiftCode.SourceAccount = status.ScreenName ?? status.User.ScreenName ?? status.User.ScreenNameResponse;
 
                     shiftCodes.Add(shiftCode);
                 }

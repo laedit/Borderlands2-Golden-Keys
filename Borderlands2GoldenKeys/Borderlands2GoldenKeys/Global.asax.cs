@@ -103,6 +103,26 @@ namespace Borderlands2GoldenKeys
                     documentSession.Store(settings);
                     documentSession.SaveChanges();
                 }
+
+                if (settings.DataVersion == 1)
+                {
+
+                    // Get all shiftcodes without sourceAccount and set it
+                    var shiftCodesWithoutSource = documentSession.Query<ShiftCode>().ToList().Where(s => string.IsNullOrEmpty(s.SourceAccount));
+
+                    if (shiftCodesWithoutSource.Any())
+                    {
+                        foreach (var shiftCode in shiftCodesWithoutSource)
+                        {
+                            shiftCode.SourceAccount = "Borderlands";
+                            documentSession.Store(shiftCode);
+                        }
+                    }
+
+                    settings.DataVersion = 2;
+                    documentSession.Store(settings);
+                    documentSession.SaveChanges();
+                }
             }
             return settings;
         }
