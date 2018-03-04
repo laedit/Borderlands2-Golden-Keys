@@ -7,6 +7,5 @@
 /// <reference path="jquery.validate.unobtrusive.js" />
 /// <reference path="jquery.unobtrusive-ajax.js" />
 /// <reference path="site.js" />
-/// <reference path="ga.js" />
 /// <reference path="jquery.zclip.min.js" />
 /// <reference path="respond.matchmedia.addlistener.js" />
